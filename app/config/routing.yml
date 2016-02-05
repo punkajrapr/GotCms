@@ -1,3 +1,3 @@
-app:
-    resource: "@GotCmsApiBundle/Controller/"
-    type:     annotation
+_gotcms_api:
+    resource: "@GotCmsApiBundle/Resources/config/routing.yml"
+    prefix:   /api

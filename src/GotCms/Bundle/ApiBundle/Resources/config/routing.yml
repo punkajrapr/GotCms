@@ -1,0 +1,53 @@
+gotcms_api_content_translation:
+  resource: "@GotCmsApiBundle/Controller/Content/TranslationController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /content
+gotcms_api_content_media:
+  resource: "@GotCmsApiBundle/Controller/Content/MediaController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /content
+gotcms_api_content_document:
+  resource: "@GotCmsApiBundle/Controller/Content/DocumentController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /content
+
+gotcms_api_development_view:
+  resource: "@GotCmsApiBundle/Controller/Development/ViewController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /development
+gotcms_api_development_layout:
+  resource: "@GotCmsApiBundle/Controller/Development/LayoutController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /development
+gotcms_api_development_script:
+  resource: "@GotCmsApiBundle/Controller/Development/ScriptController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /development
+gotcms_api_development_document_type:
+  resource: "@GotCmsApiBundle/Controller/Development/DocumentTypeController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /development
+gotcms_api_development_datatype:
+  resource: "@GotCmsApiBundle/Controller/Development/DatatypeController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /development
+
+gotcms_api_statistics_statistics:
+  resource: "@GotCmsApiBundle/Controller/Statistics/StatisticsController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /statistics
+
+gotcms_api_module_module:
+  resource: "@GotCmsApiBundle/Controller/Module/ModuleController.php"
+  type:     rest
+  defaults: {_format: json}
+  prefix:   /module

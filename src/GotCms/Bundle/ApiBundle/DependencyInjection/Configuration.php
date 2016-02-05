@@ -19,22 +19,40 @@
  *
  * @category   GotCms\Bundle
  * @package    ApiBundle
- * @subpackage Controller\Development
+ * @subpackage DependencyInjection
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
-namespace GotCms\Bundle\ApiBundle\Controller\Development;
+namespace GotCms\Bundle\ApiBundle\DependencyInjection;
 
-use GotCms\Core\Mvc\Controller\BaseRestController;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * Layout Controller
+ * This is the class that validates and merges configuration from your app/config files
  *
  * @category   GotCms\Bundle
  * @package    ApiBundle
- * @subpackage Controller\Development
+ * @subpackage DependencyInjection
  */
-class LayoutController extends BaseRestController
+class Configuration implements ConfigurationInterface
 {
+    /**
+     * Config tree builder
+     *
+     * @return TreeBuilder
+     */
+    public function getConfigTreeBuilder()
+    {
+        $treeBuilder = new TreeBuilder();
+        $rootNode    = $treeBuilder->root('got_cms_api');
+
+        $rootNode
+            ->children()
+            ->scalarNode('enabled')->defaultTrue()->end()
+            ->end();
+
+        return $treeBuilder;
+    }
 }

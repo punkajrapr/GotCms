@@ -17,33 +17,35 @@
  *
  * PHP Version >=5.3
  *
- * @category   Gc
- * @package    Library
+ * @category   GotCms
+ * @package    Core
  * @subpackage Mvc\Controller
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
 
-namespace Gc\Mvc\Controller;
+namespace GotCms\Core\Mvc\Controller;
 
-use Gc\Event\StaticEventManager;
-use Gc\Module\Model as ModuleModel;
-use Gc\User\Model as UserModel;
-use Gc\User\Role\Model as RoleModel;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
-use Zend\Session\Container as SessionContainer;
-use Zend\View\Model\JsonModel;
+use GotCms\Core\Event\StaticEventManager;
+use GotCms\Core\Module\Model as ModuleModel;
+use GotCms\Core\User\Model as UserModel;
+use GotCms\Core\User\Role\Model as RoleModel;
+use Monolog\Logger;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use FOS\RestBundle\Controller\FOSRestController;
 
 /**
  * Extension of AbstractActionController
  *
- * @category   Gc
- * @package    Library
+ * @category   GotCms
+ * @package    Core
  * @subpackage Mvc\Controller
  */
-class Action extends AbstractActionController
+class BaseRestController extends FOSRestController
 {
     /**
      * Route available for installer
@@ -58,20 +60,6 @@ class Action extends AbstractActionController
         'install/configuration',
         'install/complete'
     );
-
-    /**
-     * RouteMatch
-     *
-     * @var \Zend\Mvc\Router\RouteMatch
-     */
-    protected $routeMatch = null;
-
-    /**
-     * Session storage
-     *
-     * @var \Zend\Session\Container
-     */
-    protected $session = null;
 
     /**
      * Abstract acl
@@ -113,13 +101,33 @@ class Action extends AbstractActionController
     }
 
     /**
+     * Get repositories
+     *
+     * @return \Game\RestBundle\Services\RepositoryService
+     */
+    public function repos()
+    {
+        return $this->container->get('gameRest.repos');
+    }
+
+    /**
+     * Get doctrine entity manager
+     *
+     * @return EntityManager
+     */
+    public function em()
+    {
+        return $this->getDoctrine()->getManager();
+    }
+
+    /**
      * Constructor
      *
-     * @return \Zend\Http\Response|null
+     * @return JsonResponse|null
      */
     protected function construct()
     {
-        $routeName = $this->getRouteMatch()->getMatchedRouteName();
+        $routeName = $this->getEvent()->getRouteMatch()->getMatchedRouteName();
 
         /**
          * Installation check, and check on removal of the install directory.
@@ -157,88 +165,14 @@ class Action extends AbstractActionController
             }
         }
 
-        $this->layout()->setVariable('routeParams', $this->getRouteMatch()->getParams());
-        $this->layout()->setVariable('version', \Gc\Version::VERSION);
-
-        $this->useFlashMessenger(false);
-    }
-
-    /**
-     * Return matched route
-     *
-     * @return \Zend\Mvc\Router\Http\RouteMatch
-     */
-    public function getRouteMatch()
-    {
-        if (empty($this->routeMatch)) {
-            $this->routeMatch = $this->getEvent()->getRouteMatch();
-        }
-
-        return $this->routeMatch;
-    }
-
-    /**
-     * Get session storage
-     *
-     * @return SessionContainer
-     */
-    public function getSession()
-    {
-        if ($this->session === null) {
-            $this->session = new SessionContainer();
-        }
-
-        return $this->session;
-    }
-
-    /**
-     * Return json model
-     *
-     * @param array $data Data
-     *
-     * @return \Zend\View\Model\JsonModel
-     */
-    public function returnJson(array $data)
-    {
-        $jsonModel = new JsonModel();
-        $jsonModel->setVariables($data);
-        $jsonModel->setTerminal(true);
-
-        return $jsonModel;
-    }
-
-    /**
-     * Initiliaze flash messenger
-     *
-     * @param boolean $forceDisplay Force display
-     *
-     * @return void
-     */
-    public function useFlashMessenger($forceDisplay = true)
-    {
-        $flashMessenger = $this->flashMessenger();
-        $flashMessages  = array();
-        foreach (array('error', 'success', 'info', 'warning') as $namespace) {
-            $flashNamespace = $flashMessenger->setNameSpace($namespace);
-            if ($forceDisplay) {
-                if ($flashNamespace->hasCurrentMessages()) {
-                    $flashMessages[$namespace] = $flashNamespace->getCurrentMessages();
-                    $flashNamespace->clearCurrentMessages();
-                }
-            } else {
-                if ($flashNamespace->hasMessages()) {
-                    $flashMessages[$namespace] = $flashNamespace->getMessages();
-                }
-            }
-        }
-
-        $this->layout()->setVariable('flashMessages', $flashMessages);
+        $this->layout()->setVariable('routeParams', $this->getEvent()->getRouteMatch()->getParams());
+        $this->layout()->setVariable('version', \GotCms\Core\Version::VERSION);
     }
 
     /**
      * Retrieve event manager
      *
-     * @return \Gc\Event\StaticEventManager
+     * @return \GotCms\Core\Event\StaticEventManager
      */
     public function events()
     {
@@ -258,9 +192,9 @@ class Action extends AbstractActionController
             $permission = null;
             $acl        = $userModel->getAcl(true);
             if ($this->aclPage['resource'] == 'modules') {
-                $moduleId = $this->getRouteMatch()->getParam('m');
+                $moduleId = $this->getEvent()->getRouteMatch()->getParam('m');
                 if (empty($moduleId)) {
-                    $action     = $this->getRouteMatch()->getParam('action');
+                    $action     = $this->getEvent()->getRouteMatch()->getParam('action');
                     $permission = ($action === 'index' ? 'list' : $action);
                 } else {
                     $moduleModel = ModuleModel::fromId($moduleId);
@@ -275,7 +209,7 @@ class Action extends AbstractActionController
                 if ($this->aclPage['permission'] != 'index' and
                     !in_array($this->aclPage['resource'], array('content', 'stats'))
                 ) {
-                    $action      = $this->getRouteMatch()->getParam('action');
+                    $action      = $this->getEvent()->getRouteMatch()->getParam('action');
                     $permission .= (!empty($permission) ? '/' : '') . ($action === 'index' ? 'list' : $action);
                 }
             }
@@ -300,5 +234,82 @@ class Action extends AbstractActionController
     public function setAcl(array $array)
     {
         $this->aclPage = $array;
+    }
+    /**
+     * Get session
+     *
+     * @return Session
+     */
+    public function getSession()
+    {
+        return $this->get('session');
+    }
+
+    /**
+     * Get logger
+     *
+     * @return Logger
+     */
+    public function getLogger()
+    {
+        return $this->get('logger');
+    }
+
+    /**
+     * Get connected user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->getSession()->get('user');
+    }
+
+    /**
+     * Get unauthorized response
+     *
+     * @param string $message Optional error message
+     *
+     * @return JsonResponse
+     */
+    public function unauthorized($message = null)
+    {
+        return $this->sendMessage(Response::HTTP_UNAUTHORIZED, $message);
+    }
+
+    /**
+     * Get unauthorized response
+     *
+     * @param string $message Optional error message
+     *
+     * @return JsonResponse
+     */
+    public function badRequest($message = null)
+    {
+        return $this->sendMessage(Response::HTTP_BAD_REQUEST, $message);
+    }
+
+    /**
+     * Get forbidden response
+     *
+     * @param string $message Optional error message
+     *
+     * @return JsonResponse
+     */
+    public function forbidden($message = null)
+    {
+        return $this->sendMessage(Response::HTTP_FORBIDDEN, $message);
+    }
+
+    protected function sendMessage($code, $message = null)
+    {
+
+        $json = new JsonResponse([]);
+        if (!empty($message)) {
+            $json->setData(['message' => $message]);
+        }
+
+        $json->setStatusCode($code);
+        return $json;
     }
 }

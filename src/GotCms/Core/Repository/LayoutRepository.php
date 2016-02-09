@@ -17,32 +17,22 @@
  *
  * PHP version >= 5.5
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
- * @subpackage Entity
+ * @category   GotCms\Core
+ * @package    GotCms\Core
+ * @subpackage Repository
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
-namespace GotCms\Bundle\ApiBundle\Entity;
-
-use Doctrine\ORM\Mapping\MappedSuperclass;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\Type;
+namespace GotCms\Core\Repository;
 
 /**
- * Base Entity
+ * Layout Repository
  *
- * @package GotCms\Bundle\ApiBundle
- * @ORM\Table(name="script",
-              indexes={
-                @ORM\Index(name="fk_script_identifier", columns={"identifier"}),
-                @ORM\Index(name="fk_script_name", columns={"name"})
-              })
- * @ORM\Entity(repositoryClass="GotCms\Bundle\ApiBundle\Repository\ScriptRepository")
+ * @category   GotCms\Core
+ * @package    GotCms\Core
+ * @subpackage Repository
  */
-class Script extends BaseTemplateEntity
+class LayoutRepository extends BaseRepository
 {
 }

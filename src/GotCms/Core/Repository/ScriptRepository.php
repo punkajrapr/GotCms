@@ -17,24 +17,22 @@
  *
  * PHP version >= 5.5
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
+ * @category   GotCms\Core
+ * @package    GotCms\Core
  * @subpackage Repository
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
-namespace GotCms\Bundle\ApiBundle\Repository;
-
-use Doctrine\ORM\EntityRepository;
+namespace GotCms\Core\Repository;
 
 /**
  * Script Repository
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
+ * @category   GotCms\Core
+ * @package    GotCms\Core
  * @subpackage Repository
  */
-class ScriptRepository extends EntityRepository
+class ScriptRepository extends BaseRepository
 {
 }

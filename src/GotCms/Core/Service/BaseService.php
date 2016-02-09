@@ -17,27 +17,23 @@
  *
  * PHP version >= 5.5
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
+ * @category   GotCms\Core
+ * @package    GotCms\Core
  * @subpackage Service
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
-namespace GotCms\Bundle\ApiBundle\Service;
+namespace GotCms\Core\Service;
 
 use Doctrine\ORM\EntityManager;
 use Monolog\Logger;
-use Trade\RoundBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\Form\Exception\LogicException;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Verylys\ApiBundle\Services\ApiManagerService;
 
 /**
  * Base Entity
  *
- * @package    GotCms\Bundle\ApiBundle
+ * @package    GotCms\Core
  * @subpackage Service
  */
 abstract class BaseService

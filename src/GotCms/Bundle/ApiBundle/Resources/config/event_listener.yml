@@ -1,0 +1,9 @@
+services:
+  gotcms.save.content.listener:
+    class: GotCms\Core\EventListener\SaveContent
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate }
+      - { name: doctrine.event_listener, event: postUpdate }
+      - { name: doctrine.event_listener, event: postLoad }
+    calls:
+      - [ setContainer,[ "@service_container" ] ]

@@ -17,23 +17,23 @@
  *
  * PHP version >= 5.5
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
+ * @category   GotCms\Core
+ * @package    GotCms\Core
  * @subpackage Service
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
-namespace GotCms\Bundle\ApiBundle\Service;
+namespace GotCms\Core\Service;
 
-use GotCms\Bundle\ApiBundle\Repository\ViewRepository;
-use GotCms\Bundle\ApiBundle\Repository\LayoutRepository;
-use GotCms\Bundle\ApiBundle\Repository\ScriptRepository;
+use GotCms\Core\Repository\ViewRepository;
+use GotCms\Core\Repository\LayoutRepository;
+use GotCms\Core\Repository\ScriptRepository;
 
 /**
  * Base Entity
  *
- * @package    GotCms\Bundle\ApiBundle
+ * @package    GotCms\Core
  * @subpackage Service
  */
 class RepositoryService extends BaseService
@@ -45,7 +45,7 @@ class RepositoryService extends BaseService
      */
     public function getViewRepository()
     {
-        return $this->em()->getRepository('GotCmsApiBundle:View');
+        return $this->em()->getRepository('GotCmsCore:View');
     }
 
     /**
@@ -55,7 +55,7 @@ class RepositoryService extends BaseService
      */
     public function getLayoutRepository()
     {
-        return $this->em()->getRepository('GotCmsApiBundle:Layout');
+        return $this->em()->getRepository('GotCmsCore:Layout');
     }
 
     /**
@@ -65,6 +65,6 @@ class RepositoryService extends BaseService
      */
     public function getScriptRepository()
     {
-        return $this->em()->getRepository('GotCmsApiBundle:Script');
+        return $this->em()->getRepository('GotCmsCore:Script');
     }
 }

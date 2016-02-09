@@ -26,7 +26,7 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
-use GotCms\Bundle\ApiBundle\Entity\View as ViewEntity;
+use GotCms\Core\Entity\View as ViewEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -54,7 +54,7 @@ class ViewController extends BaseTemplateController
      *
      * @param ViewEntity $view View Entity
      *
-     * @ParamConverter("view", class="GotCmsApiBundle:View")
+     * @ParamConverter("view", class="GotCmsCore:View")
      *
      * @return array
      */
@@ -68,7 +68,7 @@ class ViewController extends BaseTemplateController
      *
      * @param ViewEntity $view View Entity
      *
-     * @ParamConverter("view", class="GotCmsApiBundle:View")
+     * @ParamConverter("view", class="GotCmsCore:View")
      *
      * @return array
      */
@@ -95,7 +95,7 @@ class ViewController extends BaseTemplateController
      * @param Request    $request Http request object
      * @param ViewEntity $view    View Entity
      *
-     * @ParamConverter("view", class="GotCmsApiBundle:View")
+     * @ParamConverter("view", class="GotCmsCore:View")
      *
      * @return array
      */

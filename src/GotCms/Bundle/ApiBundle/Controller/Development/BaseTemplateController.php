@@ -26,7 +26,7 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
-use GotCms\Bundle\ApiBundle\Entity\BaseEntity;
+use GotCms\Core\Entity\BaseEntity;
 use GotCms\Core\Mvc\Controller\BaseRestController;
 use Symfony\Component\HttpFoundation\ParameterBag;
 

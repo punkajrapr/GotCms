@@ -45,7 +45,8 @@ class GotCmsApiExtension extends Extension
      * @var array
      */
     protected $resources = array(
-        'services' => 'services.yml'
+        'services.yml',
+        'event_listener.yml'
     );
 
     /**
@@ -67,7 +68,7 @@ class GotCmsApiExtension extends Extension
             }
 
             foreach ($config as $key => $value) {
-                $container->setParameter($this->getAlias() . '.' . $key, $value);
+                $container->setParameter('gotcms_api.' . $key, $value);
             }
         }
     }

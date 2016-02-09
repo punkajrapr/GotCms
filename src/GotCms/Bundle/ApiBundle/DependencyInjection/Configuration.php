@@ -50,7 +50,25 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('enabled')->defaultTrue()->end()
+            ->booleanNode('enabled')->defaultTrue()->end()
+            ->scalarNode('templates_path')->defaultValue('%kernel.root_dir%/../templates')->end()
+            // ->scalarNode('cache_is_active')->defaultFalse()->end()
+            // ->scalarNode('cache_handler')->defaultValue('filesystem')->end()
+            // ->scalarNode('cache_lifetime')->defaultValue(600)->end()
+            // ->scalarNode('session_path')->end()
+            // ->scalarNode('session_handler')->defaltValue(0)->end()
+            // ->scalarNode('site_offline_document')->end()
+            // ->scalarNode('site_404_layout')->end()
+            // ->scalarNode('site_exception_layout')->end()
+            // ->scalarNode('cookie_path')->defaltValue('/')->end()
+            // ->scalarNode('unsecure_frontend_base_path')->end()
+            // ->scalarNode('secure_frontend_base_path')->end()
+            // ->scalarNode('unsecure_backend_base_path')->end()
+            // ->scalarNode('secure_backend_base_path')->end()
+            // ->scalarNode('unsecure_cdn_base_path')->end()
+            // ->scalarNode('secure_cdn_base_path')->end()
+            // ->booleanNode('force_backend_ssl')->defaultFalse()->end()
+            // ->booleanNode('force_frontend_ssl')->defaultFalse()->end()
             ->end();
 
         return $treeBuilder;

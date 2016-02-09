@@ -26,7 +26,7 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
-use GotCms\Bundle\ApiBundle\Entity\Script as ScriptEntity;
+use GotCms\Core\Entity\Script as ScriptEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -54,7 +54,7 @@ class ScriptController extends BaseTemplateController
      *
      * @param ScriptEntity $script Script Entity
      *
-     * @ParamConverter("script", class="GotCmsApiBundle:Script")
+     * @ParamConverter("script", class="GotCmsCore:Script")
      *
      * @return array
      */
@@ -68,7 +68,7 @@ class ScriptController extends BaseTemplateController
      *
      * @param ScriptEntity $script Script Entity
      *
-     * @ParamConverter("script", class="GotCmsApiBundle:Script")
+     * @ParamConverter("script", class="GotCmsCore:Script")
      *
      * @return array
      */
@@ -95,7 +95,7 @@ class ScriptController extends BaseTemplateController
      * @param Request      $request Http request object
      * @param ScriptEntity $script  Script Entity
      *
-     * @ParamConverter("script", class="GotCmsApiBundle:Script")
+     * @ParamConverter("script", class="GotCmsCore:Script")
      *
      * @return array
      */

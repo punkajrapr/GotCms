@@ -26,7 +26,7 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
-use GotCms\Bundle\ApiBundle\Entity\Layout as LayoutEntity;
+use GotCms\Core\Entity\Layout as LayoutEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -54,7 +54,7 @@ class LayoutController extends BaseTemplateController
      *
      * @param LayoutEntity $layout Layout Entity
      *
-     * @ParamConverter("layout", class="GotCmsApiBundle:Layout")
+     * @ParamConverter("layout", class="GotCmsCore:Layout")
      *
      * @return array
      */
@@ -68,7 +68,7 @@ class LayoutController extends BaseTemplateController
      *
      * @param LayoutEntity $layout Layout Entity
      *
-     * @ParamConverter("layout", class="GotCmsApiBundle:Layout")
+     * @ParamConverter("layout", class="GotCmsCore:Layout")
      *
      * @return array
      */
@@ -92,10 +92,10 @@ class LayoutController extends BaseTemplateController
     /**
      * Update layout
      *
-     * @param Request    $request Http request object
-     * @param LayoutEntity $layout    Layout Entity
+     * @param Request      $request Http request object
+     * @param LayoutEntity $layout  Layout Entity
      *
-     * @ParamConverter("layout", class="GotCmsApiBundle:Layout")
+     * @ParamConverter("layout", class="GotCmsCore:Layout")
      *
      * @return array
      */

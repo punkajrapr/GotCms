@@ -4,17 +4,16 @@
  *
  * PHP version >= 5.5
  *
- * @category   Game\Tests
- * @package    Game\RestBundle\Tests
+ * @category   GotCms\Core\Tests
+ * @package    GotCms\Core\Tests
  * @subpackage Controller
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       https://www.prettysimplegames.com/
  */
-namespace Game\RestBundle\Tests\Controller;
+namespace GotCms\Core\Tests\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Game\RestBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -22,9 +21,10 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 /**
  * Base test case controller
  *
- * @package Game\RestBundle\Tests
+ * @package GotCms\Core\Tests
+ * @subpackage Controller
  */
-class BaseTestCase extends WebTestCase
+class BaseRestTestCase extends WebTestCase
 {
     protected $client   = null;
     protected $fixtures = [];
@@ -46,7 +46,7 @@ class BaseTestCase extends WebTestCase
     /**
      * Get Game RestBundle repositories
      *
-     * @return \Game\RestBundle\Services\RepositoryService
+     * @return \GotCms\Core\Services\RepositoryService
      */
     protected function repos()
     {
@@ -102,11 +102,5 @@ class BaseTestCase extends WebTestCase
      */
     protected function logIn()
     {
-        $session = $this->client->getContainer()->get('session');
-        $user    = $this->repos()->getUserRepository()
-            ->findOneById(1);
-        $session->set('user', $user);
-
-        return $user;
     }
 }

@@ -1,0 +1,25 @@
+doctrine:
+  orm:
+    mappings:
+      gotcms_core:
+        mapping:              true
+        type:                 annotation
+        dir:                  '%kernel.root_dir%/../src/GotCms/Core/Entity'
+        alias:                GotCmsCore
+        prefix:               GotCms\Core\Entity
+        is_bundle:            false
+
+stof_doctrine_extensions:
+  orm:
+    default:
+      timestampable: true
+      sortable: true
+      blameable: true
+      softdeleteable: true
+
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'

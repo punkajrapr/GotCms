@@ -17,24 +17,37 @@
  *
  * PHP version >= 5.5
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
- * @subpackage Repository
+ * @category   GotCms\Core
+ * @package    GotCms\Core
+ * @subpackage Entity
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
-namespace GotCms\Bundle\ApiBundle\Repository;
+namespace GotCms\Core\Entity;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * View Repository
+ * Base Entity
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
- * @subpackage Repository
+ * @package GotCms\Core
+ * @ORM\Table(name="script",
+              indexes={
+                @ORM\Index(name="fk_script_identifier", columns={"identifier"}),
+                @ORM\Index(name="fk_script_name", columns={"name"})
+              })
+ * @ORM\Entity(repositoryClass="GotCms\Core\Repository\ScriptRepository")
  */
-class ViewRepository extends EntityRepository
+class Script extends BaseTemplateEntity
 {
+    /**
+     * Get template type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return 'script';
+    }
 }

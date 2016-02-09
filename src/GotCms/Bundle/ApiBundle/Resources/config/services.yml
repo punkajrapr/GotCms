@@ -1,9 +1,9 @@
 services:
   gotcms.repos:
-    class: GotCms\Bundle\ApiBundle\Service\RepositoryService
+    class: GotCms\Core\Service\RepositoryService
     calls:
       - [ setContainer,[ "@service_container" ] ]
   gotcms.services:
-    class: GotCms\Bundle\ApiBundle\Service\ServicesService
+    class: GotCms\Core\Service\ServicesService
     calls:
       - [ setContainer,[ "@service_container" ] ]

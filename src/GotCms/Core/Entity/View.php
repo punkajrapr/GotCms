@@ -17,32 +17,37 @@
  *
  * PHP version >= 5.5
  *
- * @category   GotCms\Bundle\ApiBundle
- * @package    GotCms\Bundle\ApiBundle
+ * @category   GotCms\Core
+ * @package    GotCms\Core
  * @subpackage Entity
  * @author     Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license    GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link       http://www.got-cms.com
  */
-namespace GotCms\Bundle\ApiBundle\Entity;
+namespace GotCms\Core\Entity;
 
-use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\Type;
 
 /**
  * Base Entity
  *
- * @package GotCms\Bundle\ApiBundle
+ * @package GotCms\Core
  * @ORM\Table(name="view",
               indexes={
                 @ORM\Index(name="fk_view_identifier", columns={"identifier"}),
                 @ORM\Index(name="fk_view_name", columns={"name"})
               })
- * @ORM\Entity(repositoryClass="GotCms\Bundle\ApiBundle\Repository\ViewRepository")
+ * @ORM\Entity(repositoryClass="GotCms\Core\Repository\ViewRepository")
  */
 class View extends BaseTemplateEntity
 {
+    /**
+     * Get template type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return 'view';
+    }
 }

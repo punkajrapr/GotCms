@@ -26,7 +26,9 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
-use GotCms\Core\Mvc\Controller\BaseRestController;
+use GotCms\Bundle\ApiBundle\Entity\Script as ScriptEntity;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Script Controller
@@ -35,6 +37,90 @@ use GotCms\Core\Mvc\Controller\BaseRestController;
  * @package    ApiBundle
  * @subpackage Controller\Development
  */
-class ScriptController extends BaseRestController
+class ScriptController extends BaseTemplateController
 {
+    /**
+     * List all scripts
+     *
+     * @return array
+     */
+    public function getScriptsAction()
+    {
+        return $this->getAll();
+    }
+
+    /**
+     * Get script
+     *
+     * @param ScriptEntity $script Script Entity
+     *
+     * @ParamConverter("script", class="GotCmsApiBundle:Script")
+     *
+     * @return array
+     */
+    public function getScriptAction($script)
+    {
+        return $this->get($script);
+    }
+
+    /**
+     * Delete script
+     *
+     * @param ScriptEntity $script Script Entity
+     *
+     * @ParamConverter("script", class="GotCmsApiBundle:Script")
+     *
+     * @return array
+     */
+    public function deleteScriptAction($script)
+    {
+        return $this->delete($script);
+    }
+
+    /**
+     * Create script
+     *
+     * @param Request $request Http request object
+     *
+     * @return array
+     */
+    public function postScriptAction(Request $request)
+    {
+        return $this->create($request->request);
+    }
+
+    /**
+     * Update script
+     *
+     * @param Request      $request Http request object
+     * @param ScriptEntity $script  Script Entity
+     *
+     * @ParamConverter("script", class="GotCmsApiBundle:Script")
+     *
+     * @return array
+     */
+    public function putScriptAction(Request $request, $script)
+    {
+        return $this->update($script, $request->request);
+    }
+
+    /**
+     * Get repository
+     *
+     * @return ScriptRepository
+     */
+    protected function getRepository()
+    {
+        return $this->repos()->getScriptRepository();
+    }
+
+    /**
+     * Get Entity
+     *
+     * @return ScriptEntity
+     */
+    protected function getEntity()
+    {
+        return new ScriptEntity();
+    }
 }

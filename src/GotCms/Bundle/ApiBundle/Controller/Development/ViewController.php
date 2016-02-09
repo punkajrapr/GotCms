@@ -26,6 +26,10 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
+use GotCms\Bundle\ApiBundle\Entity\View as ViewEntity;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 /**
  * View Controller
  *
@@ -35,43 +39,88 @@ namespace GotCms\Bundle\ApiBundle\Controller\Development;
  */
 class ViewController extends BaseTemplateController
 {
+    /**
+     * List all views
+     *
+     * @return array
+     */
     public function getViewsAction()
     {
-        $this->getAll();
+        return $this->getAll();
     }
 
-    public function getViewAction($id)
+    /**
+     * Get view
+     *
+     * @param ViewEntity $view View Entity
+     *
+     * @ParamConverter("view", class="GotCmsApiBundle:View")
+     *
+     * @return array
+     */
+    public function getViewAction($view)
     {
-        $this->get($id);
+        return $this->get($view);
     }
 
-    public function deleteViewAction()
+    /**
+     * Delete view
+     *
+     * @param ViewEntity $view View Entity
+     *
+     * @ParamConverter("view", class="GotCmsApiBundle:View")
+     *
+     * @return array
+     */
+    public function deleteViewAction($view)
     {
-        $this->delete();
+        return $this->delete($view);
     }
 
-    public function postViewAction()
+    /**
+     * Create view
+     *
+     * @param Request $request Http request object
+     *
+     * @return array
+     */
+    public function postViewAction(Request $request)
     {
-        $this->create();
+        return $this->create($request->request);
     }
 
-    public function putViewAction()
+    /**
+     * Update view
+     *
+     * @param Request    $request Http request object
+     * @param ViewEntity $view    View Entity
+     *
+     * @ParamConverter("view", class="GotCmsApiBundle:View")
+     *
+     * @return array
+     */
+    public function putViewAction(Request $request, $view)
     {
-        $this->update();
+        return $this->update($view, $request->request);
     }
 
-    protected function getCollection()
+    /**
+     * Get repository
+     *
+     * @return ViewRepository
+     */
+    protected function getRepository()
     {
-        return new View\Collection();
+        return $this->repos()->getViewRepository();
     }
 
-    protected function getModel()
+    /**
+     * Get Entity
+     *
+     * @return ViewEntity
+     */
+    protected function getEntity()
     {
-        return new View\Model();
-    }
-
-    protected function loadModel($id)
-    {
-        return View\Model::fromId((int) $id);
+        return new ViewEntity();
     }
 }

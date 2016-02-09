@@ -103,11 +103,11 @@ class BaseRestController extends FOSRestController
     /**
      * Get repositories
      *
-     * @return \Game\RestBundle\Services\RepositoryService
+     * @return \GotCms\Bundle\ApiBundle\Services\RepositoryService
      */
     public function repos()
     {
-        return $this->container->get('gameRest.repos');
+        return $this->container->get('gotcms.repos');
     }
 
     /**
@@ -132,13 +132,13 @@ class BaseRestController extends FOSRestController
         /**
          * Installation check, and check on removal of the install directory.
          */
-        $config = $this->getServiceLocator()->get('Config');
+        $config = $this->getServiceLocator()->container->get('Config');
         if (!isset($config['db'])
             and !in_array($routeName, $this->installerRoutes)
         ) {
             return $this->redirect()->toRoute('install');
         } elseif (!in_array($routeName, $this->installerRoutes)) {
-            $auth = $this->getServiceLocator()->get('Auth');
+            $auth = $this->getServiceLocator()->container->get('Auth');
             if (!$auth->hasIdentity()) {
                 if (!in_array(
                     $routeName,
@@ -242,7 +242,7 @@ class BaseRestController extends FOSRestController
      */
     public function getSession()
     {
-        return $this->get('session');
+        return $this->container->get('session');
     }
 
     /**
@@ -252,7 +252,7 @@ class BaseRestController extends FOSRestController
      */
     public function getLogger()
     {
-        return $this->get('logger');
+        return $this->container->get('logger');
     }
 
     /**
@@ -274,7 +274,7 @@ class BaseRestController extends FOSRestController
      */
     public function unauthorized($message = null)
     {
-        return $this->sendMessage(Response::HTTP_UNAUTHORIZED, $message);
+        return $this->prepareResponse(Response::HTTP_UNAUTHORIZED, $message);
     }
 
     /**
@@ -286,7 +286,7 @@ class BaseRestController extends FOSRestController
      */
     public function badRequest($message = null)
     {
-        return $this->sendMessage(Response::HTTP_BAD_REQUEST, $message);
+        return $this->prepareResponse(Response::HTTP_BAD_REQUEST, $message);
     }
 
     /**
@@ -298,18 +298,25 @@ class BaseRestController extends FOSRestController
      */
     public function forbidden($message = null)
     {
-        return $this->sendMessage(Response::HTTP_FORBIDDEN, $message);
+        return $this->prepareResponse(Response::HTTP_FORBIDDEN, $message);
     }
 
-    protected function sendMessage($code, $message = null)
+    /**
+     * Send json response
+     *
+     * @param integer $code    HTTP code
+     * @param string  $message Optional error message
+     *
+     * @return JsonResponse
+     */
+    protected function prepareResponse($code, $message = null)
     {
-
         $json = new JsonResponse([]);
+        $json->setStatusCode($code);
         if (!empty($message)) {
             $json->setData(['message' => $message]);
         }
 
-        $json->setStatusCode($code);
         return $json;
     }
 }

@@ -26,7 +26,9 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
+use GotCms\Bundle\ApiBundle\Entity\BaseEntity;
 use GotCms\Core\Mvc\Controller\BaseRestController;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * BaseTemplate Controller
@@ -40,99 +42,100 @@ class BaseTemplateController extends BaseRestController
     /**
      * List all views
      *
-     * @return \Zend\View\Model\ViewModel
+     * @return array
      */
     public function getAll()
     {
-        $collection = $this->getCollection();
-        $return         = array();
-        foreach ($collection->getAll() as $view) {
-            $return[] = $view->toArray();
-        }
-
-        return array('templates' => $return);
+        return $this->getRepository()->findAll();
     }
     /**
      * Get view
      *
-     * @param integer $id Id of the view model
+     * @param BaseEntity $entity Template model entity
      *
-     * @return \Zend\View\Model\ViewModel
+     * @return array
      */
-    public function get($id)
+    public function get($entity)
     {
-        $model = $this->loadModel($id);
-        if (empty($model)) {
-            return $this->notFoundAction();
-        }
-        return array('template' => $model->toArray());
+        return $entity;
     }
     /**
      * Create view
      *
-     * @param array $data Data returns
+     * @param ParameterBag $request Post request
      *
-     * @return \Zend\View\Model\ViewModel
+     * @return array
      */
-    public function create($data)
+    public function create($request)
     {
-        $filter = new ViewFilter($this->getServiceLocator()->get('DbAdapter'));
-        $filter->setData($data);
-        if (!$filter->isValid()) {
-            return $this->badRequest($filter->getMessages());
+        $entity = $this->getEntity();
+        $entity->setIdentifier($request->get('identifier'));
+        $entity->setDescription($request->get('description'));
+        $entity->setName($request->get('name'));
+        $entity->setContent($request->get('content'));
+
+        $validator = $this->container->get('validator');
+        $errors    = $validator->validate($entity);
+        if (!empty(count($errors))) {
+            return $this->badRequest((string) $errors);
         }
 
-        $model = $this->getModel();
-        $model->setName($filter->getValue('name'));
-        $model->setIdentifier($filter->getValue('identifier'));
-        $model->setDescription($filter->getValue('description'));
-        $model->setContent($filter->getValue('content'));
-        $model->save();
-        return $model->toArray();
+        $this->em()->persist($entity);
+        $this->em()->flush();
+
+        return $entity;
     }
 
     /**
      * Edit view
      *
-     * @param integer $id   Id of the view
-     * @param array   $data Data returns
+     * @param BaseEntity   $entity  Template model entity
+     * @param ParameterBag $request Post request
      *
-     * @return \Zend\View\Model\ViewModel
+     * @return array
      */
-    public function update($id, $data)
+    public function update($entity, $request)
     {
-        $model = $this->loadModel($id);
-        if (empty($model)) {
-            return $this->notFoundAction();
+        if (!empty($request->get('identifier'))) {
+            $entity->setIdentifier($request->get('identifier'));
         }
 
-        $filter = new ViewFilter($this->getServiceLocator()->get('DbAdapter'));
-        $filter->setData($data);
-        if (! $filter->isValid()) {
-            return $this->badRequest($filter->getMessages());
+        if (!empty($request->get('description'))) {
+            $entity->setDescription($request->get('description'));
         }
 
-        $model->setName($filter->getValue('name'));
-        $model->setIdentifier($filter->getValue('identifier'));
-        $model->setDescription($filter->getValue('description'));
-        $model->setContent($filter->getValue('content'));
-        $model->save();
-        return $model->toArray();
+        if (!empty($request->get('name'))) {
+            $entity->setName($request->get('name'));
+        }
+
+        if (!empty($request->get('content'))) {
+            $entity->setContent($request->get('content'));
+        }
+
+        $validator = $this->container->get('validator');
+        $errors    = $validator->validate($entity);
+        if (!empty(count($errors))) {
+            return $this->badRequest((string) $errors);
+        }
+
+        $this->em()->persist($entity);
+        $this->em()->flush();
+
+        return $entity;
     }
-    /**
-     * Delete View
-     *
-     * @param integer $id Id of the view
-     *
-     * @return \Zend\View\Model\ViewModel
-     */
-    public function delete($id)
-    {
-        $view = $this->loadModel($id);
-        if (!empty($view) and $view->delete()) {
-            return array('message' => 'This view has been deleted.');
-        }
 
-        return $this->notFoundAction();
+    /**
+     * Delete entity
+     *
+     * @param BaseEntity $entity Template model entity
+     *
+     * @return null
+     */
+    public function delete($entity)
+    {
+        $this->em()->remove($entity);
+        $this->em()->flush();
+
+        return;
     }
 }

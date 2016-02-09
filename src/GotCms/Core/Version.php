@@ -15,32 +15,33 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with GotCms. If not, see <http://www.gnu.org/licenses/lgpl-3.0.html>.
  *
- * PHP Version >=5.3
+ * PHP version >= 5.5
  *
- * @category Gc
- * @package  Library
+ * @category GotCms\Core
+ * @package  GotCms\Core
  * @author   Pierre Rambaud (GoT) <pierre.rambaud86@gmail.com>
  * @license  GNU/LGPL http://www.gnu.org/licenses/lgpl-3.0.html
  * @link     http://www.got-cms.com
  */
+namespace GotCms\Core;
 
-namespace Gc;
-
-use Zend\Json\Json;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Zend\Http\Client;
 
 /**
  * Class to store and retrieve version
  *
- * @category Gc
- * @package  Library
+ * @category GotCms\Core
+ * @package  GotCms\Core
  */
 final class Version
 {
     /**
      * GotCms version identification - see compareVersion()
      */
-    const VERSION = '1.6.2';
+    const VERSION = '2.0.0.a';
 
     /**
      * The latest stable version GotCms available
@@ -51,7 +52,7 @@ final class Version
 
     /**
      * Compare the specified GotCms version string $version
-     * with the current Gc\Version::VERSION of GotCms.
+     * with the current GotCms\Version::VERSION of GotCms.
      *
      * @param string $version A version string (e.g. "0.7.1").
      *
@@ -100,7 +101,10 @@ final class Version
             }
 
             if (!empty($content)) {
-                $apiResponse = Json::decode($content, Json::TYPE_ARRAY);
+                $nameConverter = new OrgPrefixNameConverter();
+                $normalizer    = new ObjectNormalizer(null, $nameConverter);
+                $serializer    = new Serializer(array($normalizer), array(new JsonEncoder()));
+                $apiResponse   = $serializer->deserialize($content);
 
                 // Simplify the API response into a simple array of version numbers
                 $tags = array_map(

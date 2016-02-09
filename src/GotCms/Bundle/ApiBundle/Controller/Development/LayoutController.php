@@ -26,7 +26,9 @@
  */
 namespace GotCms\Bundle\ApiBundle\Controller\Development;
 
-use GotCms\Core\Mvc\Controller\BaseRestController;
+use GotCms\Bundle\ApiBundle\Entity\Layout as LayoutEntity;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Layout Controller
@@ -35,6 +37,90 @@ use GotCms\Core\Mvc\Controller\BaseRestController;
  * @package    ApiBundle
  * @subpackage Controller\Development
  */
-class LayoutController extends BaseRestController
+class LayoutController extends BaseTemplateController
 {
+    /**
+     * List all layouts
+     *
+     * @return array
+     */
+    public function getLayoutsAction()
+    {
+        return $this->getAll();
+    }
+
+    /**
+     * Get layout
+     *
+     * @param LayoutEntity $layout Layout Entity
+     *
+     * @ParamConverter("layout", class="GotCmsApiBundle:Layout")
+     *
+     * @return array
+     */
+    public function getLayoutAction($layout)
+    {
+        return $this->get($layout);
+    }
+
+    /**
+     * Delete layout
+     *
+     * @param LayoutEntity $layout Layout Entity
+     *
+     * @ParamConverter("layout", class="GotCmsApiBundle:Layout")
+     *
+     * @return array
+     */
+    public function deleteLayoutAction($layout)
+    {
+        return $this->delete($layout);
+    }
+
+    /**
+     * Create layout
+     *
+     * @param Request $request Http request object
+     *
+     * @return array
+     */
+    public function postLayoutAction(Request $request)
+    {
+        return $this->create($request->request);
+    }
+
+    /**
+     * Update layout
+     *
+     * @param Request    $request Http request object
+     * @param LayoutEntity $layout    Layout Entity
+     *
+     * @ParamConverter("layout", class="GotCmsApiBundle:Layout")
+     *
+     * @return array
+     */
+    public function putLayoutAction(Request $request, $layout)
+    {
+        return $this->update($layout, $request->request);
+    }
+
+    /**
+     * Get repository
+     *
+     * @return LayoutRepository
+     */
+    protected function getRepository()
+    {
+        return $this->repos()->getLayoutRepository();
+    }
+
+    /**
+     * Get Entity
+     *
+     * @return LayoutEntity
+     */
+    protected function getEntity()
+    {
+        return new LayoutEntity();
+    }
 }

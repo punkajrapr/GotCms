@@ -50,7 +50,7 @@ class BaseTestCase extends WebTestCase
      */
     protected function repos()
     {
-        return $this->getContainer()->get('gameRest.repos');
+        return $this->getContainer()->get('gotcms.repos');
     }
 
     /**

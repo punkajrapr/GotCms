@@ -21,7 +21,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 /**
  * Base test case controller
  *
- * @package GotCms\Core\Tests
+ * @package    GotCms\Core\Tests
  * @subpackage Controller
  */
 class BaseRestTestCase extends WebTestCase

@@ -145,7 +145,7 @@ class ViewControllerTest extends BaseRestTestCase
      */
     public function testPutViewAction()
     {
-        $view = $this->repos()->getViewRepository()->findOneById(1);
+        $view   = $this->repos()->getViewRepository()->findOneById(1);
         $client = $this->getClient();
         $client->request(
             'PUT',

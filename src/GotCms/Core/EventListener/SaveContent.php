@@ -29,18 +29,26 @@ namespace GotCms\Core\EventListener;
 use Symfony\Component\Filesystem\Filesystem;
 use GotCms\Core\Entity\BaseTemplateEntity;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Base Entity
  *
- * @package GotCms\Core
+ * @package    GotCms\Core
  * @subpackage EventListener
  */
 class SaveContent
 {
     protected $container;
 
-    public function setContainer($container)
+    /**
+     * Set container
+     *
+     * @param Container $container Container
+     *
+     * @return null
+     */
+    public function setContainer(Container $container)
     {
         $this->container = $container;
     }
@@ -64,7 +72,7 @@ class SaveContent
      *
      * @return null
      */
-    public function preUpdate(LifecycleEventArgs $event)
+    public function postPersist(LifecycleEventArgs $event)
     {
         $this->checkForFile($event);
     }
@@ -81,6 +89,14 @@ class SaveContent
         $this->checkForFile($event, true);
     }
 
+    /**
+     * Check for file
+     *
+     * @param LifecycleEventArgs $event Lifecycle event args
+     * @param boolean            $read  Is reading or writing
+     *
+     * @return BaseTemplateEntity
+     */
     protected function checkForFile(LifecycleEventArgs $event, $read = false)
     {
         $entity = $event->getEntity();
@@ -88,7 +104,7 @@ class SaveContent
             return;
         }
 
-        $fs = new Filesystem();
+        $fs       = new Filesystem();
         $filePath = $this->getTemplatePath($entity);
         if (!$fs->exists($filePath)) {
             $fs->touch($filePath);
@@ -102,6 +118,13 @@ class SaveContent
         return $entity;
     }
 
+    /**
+     * Get template path
+     *
+     * @param BaseTemplateEntity $entity Template entity
+     *
+     * @return string
+     */
     protected function getTemplatePath(BaseTemplateEntity $entity)
     {
         $templatePath = $this->container->getParameter('gotcms_api.templates_path');

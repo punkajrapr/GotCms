@@ -13,7 +13,7 @@ before_install:
 
 
 before_script:
-  - ./bin/console doctrine:schema:create --env travis
+  - ./bin/console doctrine:database:create --if-not-exists --env travis
 
 script:
   - ./scripts/phpcs.sh

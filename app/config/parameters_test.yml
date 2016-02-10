@@ -3,7 +3,7 @@ parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
     database_port: null
-    database_name: gotcms_sf3
+    database_name: gotcms_sf3_test
     database_user: root
     database_password: toor
     mailer_transport: smtp

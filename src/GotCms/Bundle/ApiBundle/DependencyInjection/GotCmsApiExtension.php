@@ -44,10 +44,10 @@ class GotCmsApiExtension extends Extension
     /**
      * @var array
      */
-    protected $resources = array(
+    protected $resources = [
         'services.yml',
         'event_listener.yml'
-    );
+    ];
 
     /**
      * Loads the services based on your application configuration.

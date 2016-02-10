@@ -19,13 +19,13 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
- * View controller tests
+ * Script controller tests
  *
  * @package GotCms\Bundle\ApiBundle\Tests
  */
-class ViewControllerTest extends BaseRestTestCase
+class ScriptControllerTest extends BaseRestTestCase
 {
-    protected $fixtures = ['GotCms\Bundle\ApiBundle\Tests\DataFixtures\ORM\LoadViewData'];
+    protected $fixtures = ['GotCms\Bundle\ApiBundle\Tests\DataFixtures\ORM\LoadScriptData'];
 
     /**
      * Clear all useless templates
@@ -45,16 +45,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Get Views action should return all views
+     * Get Scripts action should return all scripts
      *
      * @return null
      */
-    public function testGetViewsAction()
+    public function testGetScriptsAction()
     {
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/views'
+            'api/development/scripts'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -65,16 +65,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Get View action with invalid id should return HTTP_NOT_FOUND
+     * Get Script action with invalid id should return HTTP_NOT_FOUND
      *
      * @return null
      */
-    public function testGetViewActionWithWrongId()
+    public function testGetScriptActionWithWrongId()
     {
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/views/1000'
+            'api/development/scripts/1000'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -85,16 +85,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Get View action should return view
+     * Get Script action should return script
      *
      * @return null
      */
-    public function testGetViewAction()
+    public function testGetScriptAction()
     {
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/views/1'
+            'api/development/scripts/1'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -102,21 +102,21 @@ class ViewControllerTest extends BaseRestTestCase
             Response::HTTP_OK,
             $client
         );
-        $view = json_decode($jsonResponse);
-        $this->assertEquals('content', $view->content);
+        $script = json_decode($jsonResponse);
+        $this->assertEquals('content', $script->content);
     }
 
     /**
-     * Post View action must failed with invalid credentials
+     * Post Script action must failed with invalid credentials
      *
      * @return null
      */
-    public function testPostViewActionInvalidData()
+    public function testPostScriptActionInvalidData()
     {
         $client = $this->getClient();
         $client->request(
             'POST',
-            'api/development/views',
+            'api/development/scripts',
             [
                 'identifier' => '&é',
                 'name' => 'blablabla'
@@ -132,16 +132,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Post View action must success with valid data
+     * Post Script action must success with valid data
      *
      * @return null
      */
-    public function testPostViewAction()
+    public function testPostScriptAction()
     {
         $client = $this->getClient();
         $client->request(
             'POST',
-            'api/development/views',
+            'api/development/scripts',
             [
                 'identifier' => 'new-identifier',
                 'name' => 'blablabla',
@@ -158,17 +158,17 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Put View action should be ok with valid data
+     * Put Script action should be ok with valid data
      *
      * @return null
      */
-    public function testPutViewAction()
+    public function testPutScriptAction()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $script = $this->repos()->getScriptRepository()->findOneById(1);
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/views/1',
+            'api/development/scripts/1',
             [
                 'identifier' => 'new-identifier',
                 'description' => 'desc',
@@ -182,26 +182,26 @@ class ViewControllerTest extends BaseRestTestCase
             Response::HTTP_OK,
             $client
         );
-        $newView = json_decode($jsonResponse);
-        $this->assertEquals($view->getId(), $newView->id);
-        $this->assertEquals('new-identifier', $newView->identifier);
-        $this->assertEquals('new content', $newView->content);
-        $this->assertEquals('desc', $newView->description);
-        $this->assertEquals('blablabla', $newView->name);
+        $newScript = json_decode($jsonResponse);
+        $this->assertEquals($script->getId(), $newScript->id);
+        $this->assertEquals('new-identifier', $newScript->identifier);
+        $this->assertEquals('new content', $newScript->content);
+        $this->assertEquals('desc', $newScript->description);
+        $this->assertEquals('blablabla', $newScript->name);
     }
 
     /**
-     * Put View action should not be ok with invalid data
+     * Put Script action should not be ok with invalid data
      *
      * @return null
      */
-    public function testPutViewActionWithInvalidData()
+    public function testPutScriptActionWithInvalidData()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $script = $this->repos()->getScriptRepository()->findOneById(1);
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/views/1',
+            'api/development/scripts/1',
             [
                 'identifier' => '&é(-è)',
             ]
@@ -216,16 +216,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Delete view should not work with wrong id
+     * Delete script should not work with wrong id
      *
      * @return null
      */
-    public function testDeleteViewActionWithInvalidId()
+    public function testDeleteScriptActionWithInvalidId()
     {
         $client = $this->getClient();
         $client->request(
             'DELETE',
-            'api/development/views/10000'
+            'api/development/scripts/10000'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -236,19 +236,19 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Delete view should be ok with valid id
+     * Delete script should be ok with valid id
      *
      * @return null
      */
-    public function testDeleteViewActionWithValidId()
+    public function testDeleteScriptActionWithValidId()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $script = $this->repos()->getScriptRepository()->findOneById(1);
         $client = $this->getClient();
         $client->request(
             'DELETE',
-            'api/development/views/1'
+            'api/development/scripts/1'
         );
-        $this->assertInstanceOf('GotCms\\Core\\Entity\\View', $view);
+        $this->assertInstanceOf('GotCms\\Core\\Entity\\Script', $script);
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
         $this->assertStatusCode(

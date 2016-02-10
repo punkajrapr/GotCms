@@ -19,13 +19,13 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
- * View controller tests
+ * Layout controller tests
  *
  * @package GotCms\Bundle\ApiBundle\Tests
  */
-class ViewControllerTest extends BaseRestTestCase
+class LayoutControllerTest extends BaseRestTestCase
 {
-    protected $fixtures = ['GotCms\Bundle\ApiBundle\Tests\DataFixtures\ORM\LoadViewData'];
+    protected $fixtures = ['GotCms\Bundle\ApiBundle\Tests\DataFixtures\ORM\LoadLayoutData'];
 
     /**
      * Clear all useless templates
@@ -45,16 +45,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Get Views action should return all views
+     * Get Layouts action should return all layouts
      *
      * @return null
      */
-    public function testGetViewsAction()
+    public function testGetLayoutsAction()
     {
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/views'
+            'api/development/layouts'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -65,16 +65,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Get View action with invalid id should return HTTP_NOT_FOUND
+     * Get Layout action with invalid id should return HTTP_NOT_FOUND
      *
      * @return null
      */
-    public function testGetViewActionWithWrongId()
+    public function testGetLayoutActionWithWrongId()
     {
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/views/1000'
+            'api/development/layouts/1000'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -85,16 +85,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Get View action should return view
+     * Get Layout action should return layout
      *
      * @return null
      */
-    public function testGetViewAction()
+    public function testGetLayoutAction()
     {
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/views/1'
+            'api/development/layouts/1'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -102,21 +102,21 @@ class ViewControllerTest extends BaseRestTestCase
             Response::HTTP_OK,
             $client
         );
-        $view = json_decode($jsonResponse);
-        $this->assertEquals('content', $view->content);
+        $layout = json_decode($jsonResponse);
+        $this->assertEquals('content', $layout->content);
     }
 
     /**
-     * Post View action must failed with invalid credentials
+     * Post Layout action must failed with invalid credentials
      *
      * @return null
      */
-    public function testPostViewActionInvalidData()
+    public function testPostLayoutActionInvalidData()
     {
         $client = $this->getClient();
         $client->request(
             'POST',
-            'api/development/views',
+            'api/development/layouts',
             [
                 'identifier' => '&é',
                 'name' => 'blablabla'
@@ -132,16 +132,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Post View action must success with valid data
+     * Post Layout action must success with valid data
      *
      * @return null
      */
-    public function testPostViewAction()
+    public function testPostLayoutAction()
     {
         $client = $this->getClient();
         $client->request(
             'POST',
-            'api/development/views',
+            'api/development/layouts',
             [
                 'identifier' => 'new-identifier',
                 'name' => 'blablabla',
@@ -158,17 +158,17 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Put View action should be ok with valid data
+     * Put Layout action should be ok with valid data
      *
      * @return null
      */
-    public function testPutViewAction()
+    public function testPutLayoutAction()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $layout = $this->repos()->getLayoutRepository()->findOneById(1);
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/views/1',
+            'api/development/layouts/1',
             [
                 'identifier' => 'new-identifier',
                 'description' => 'desc',
@@ -182,26 +182,26 @@ class ViewControllerTest extends BaseRestTestCase
             Response::HTTP_OK,
             $client
         );
-        $newView = json_decode($jsonResponse);
-        $this->assertEquals($view->getId(), $newView->id);
-        $this->assertEquals('new-identifier', $newView->identifier);
-        $this->assertEquals('new content', $newView->content);
-        $this->assertEquals('desc', $newView->description);
-        $this->assertEquals('blablabla', $newView->name);
+        $newLayout = json_decode($jsonResponse);
+        $this->assertEquals($layout->getId(), $newLayout->id);
+        $this->assertEquals('new-identifier', $newLayout->identifier);
+        $this->assertEquals('new content', $newLayout->content);
+        $this->assertEquals('desc', $newLayout->description);
+        $this->assertEquals('blablabla', $newLayout->name);
     }
 
     /**
-     * Put View action should not be ok with invalid data
+     * Put Layout action should not be ok with invalid data
      *
      * @return null
      */
-    public function testPutViewActionWithInvalidData()
+    public function testPutLayoutActionWithInvalidData()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $layout = $this->repos()->getLayoutRepository()->findOneById(1);
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/views/1',
+            'api/development/layouts/1',
             [
                 'identifier' => '&é(-è)',
             ]
@@ -216,16 +216,16 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Delete view should not work with wrong id
+     * Delete layout should not work with wrong id
      *
      * @return null
      */
-    public function testDeleteViewActionWithInvalidId()
+    public function testDeleteLayoutActionWithInvalidId()
     {
         $client = $this->getClient();
         $client->request(
             'DELETE',
-            'api/development/views/10000'
+            'api/development/layouts/10000'
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -236,19 +236,19 @@ class ViewControllerTest extends BaseRestTestCase
     }
 
     /**
-     * Delete view should be ok with valid id
+     * Delete layout should be ok with valid id
      *
      * @return null
      */
-    public function testDeleteViewActionWithValidId()
+    public function testDeleteLayoutActionWithValidId()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $layout = $this->repos()->getLayoutRepository()->findOneById(1);
         $client = $this->getClient();
         $client->request(
             'DELETE',
-            'api/development/views/1'
+            'api/development/layouts/1'
         );
-        $this->assertInstanceOf('GotCms\\Core\\Entity\\View', $view);
+        $this->assertInstanceOf('GotCms\\Core\\Entity\\Layout', $layout);
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
         $this->assertStatusCode(

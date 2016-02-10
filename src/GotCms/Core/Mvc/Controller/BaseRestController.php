@@ -52,14 +52,14 @@ class BaseRestController extends FOSRestController
      *
      * @var array
      */
-    protected $installerRoutes = array(
+    protected $installerRoutes = [
         'install',
         'install/check-config',
         'install/license',
         'install/database',
         'install/configuration',
         'install/complete'
-    );
+    ];
 
     /**
      * Abstract acl
@@ -142,21 +142,21 @@ class BaseRestController extends FOSRestController
             if (!$auth->hasIdentity()) {
                 if (!in_array(
                     $routeName,
-                    array(
+                    [
                         'config/user/login',
                         'config/user/forgot-password',
                         'config/user/forgot-password-key',
                         'cms'
-                    )
+                    ]
                 )
                 ) {
                     return $this->redirect()->toRoute(
                         'config/user/login',
-                        array('redirect' => base64_encode($this->getRequest()->getRequestUri()))
+                        ['redirect' => base64_encode($this->getRequest()->getRequestUri())]
                     );
                 }
             } else {
-                if (!in_array($routeName, array('config/user/forbidden', 'config/user/logout'))) {
+                if (!in_array($routeName, ['config/user/forbidden', 'config/user/logout'])) {
                     $resultResponse = $this->checkAcl($auth->getIdentity());
                     if (!empty($resultResponse)) {
                         return $resultResponse;
@@ -207,7 +207,7 @@ class BaseRestController extends FOSRestController
                     null :
                     $this->aclPage['permission'];
                 if ($this->aclPage['permission'] != 'index' and
-                    !in_array($this->aclPage['resource'], array('content', 'stats'))
+                    !in_array($this->aclPage['resource'], ['content', 'stats'])
                 ) {
                     $action      = $this->getEvent()->getRouteMatch()->getParam('action');
                     $permission .= (!empty($permission) ? '/' : '') . ($action === 'index' ? 'list' : $action);

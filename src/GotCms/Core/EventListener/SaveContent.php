@@ -54,6 +54,27 @@ class SaveContent
     }
 
     /**
+     * Post remove handler
+     *
+     * @param LifecycleEventArgs $event Lifecycle event args
+     *
+     * @return null
+     */
+    public function postRemove(LifecycleEventArgs $event)
+    {
+        $entity = $event->getEntity();
+        if (!$entity instanceof BaseTemplateEntity) {
+            return;
+        }
+
+        $fs       = new Filesystem();
+        $filePath = $this->getTemplatePath($entity->getType(), $entity->getIdentifier());
+        if ($fs->exists($filePath)) {
+            $fs->remove($filePath);
+        }
+    }
+
+    /**
      * Post update handler
      *
      * @param LifecycleEventArgs $event Lifecycle event args
@@ -105,13 +126,18 @@ class SaveContent
         }
 
         $fs       = new Filesystem();
-        $filePath = $this->getTemplatePath($entity);
-        if (!$fs->exists($filePath)) {
-            $fs->touch($filePath);
-        }
+        $filePath = $this->getTemplatePath($entity->getType(), $entity->getIdentifier());
 
         if ($read) {
             return $entity->setContent(file_get_contents($filePath));
+        }
+
+        $changes = $event->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity);
+        if (!empty($changes['identifier'][0])) {
+            $fs->rename(
+                $this->getTemplatePath($entity->getType(), $changes['identifier'][0]),
+                $filePath
+            );
         }
 
         $fs->dumpFile($filePath, $entity->getContent());
@@ -121,18 +147,19 @@ class SaveContent
     /**
      * Get template path
      *
-     * @param BaseTemplateEntity $entity Template entity
+     * @param string $type       Type
+     * @param string $identifier Identifier
      *
      * @return string
      */
-    protected function getTemplatePath(BaseTemplateEntity $entity)
+    protected function getTemplatePath($type, $identifier)
     {
         $templatePath = $this->container->getParameter('gotcms_api.templates_path');
         return sprintf(
             '%s/%ss/%s.phtml',
             $templatePath,
-            $entity->getType(),
-            $entity->getIdentifier()
+            $type,
+            $identifier
         );
     }
 }

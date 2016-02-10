@@ -63,7 +63,7 @@ abstract class BaseTemplateEntity extends BaseEntity
     private $description;
 
     /**
-     * @var string
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
@@ -149,9 +149,6 @@ abstract class BaseTemplateEntity extends BaseEntity
     public function setContent($content)
     {
         $this->content = $content;
-        if (!empty($content)) {
-            // @TODO notify property changed
-        }
 
         return $this;
     }

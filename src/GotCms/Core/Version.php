@@ -79,12 +79,12 @@ final class Version
             try {
                 $client = new Client(
                     $url,
-                    array(
+                    [
                         'adapter' => 'Zend\Http\Client\Adapter\Curl',
-                        'timeout'      => 2,
+                        'timeout' => 2,
                         'ssltransport' => STREAM_CRYPTO_METHOD_TLS_CLIENT,
                         'sslverifypeer' => false
-                    )
+                    ]
                 );
 
                 $response = $client->send();
@@ -103,7 +103,7 @@ final class Version
             if (!empty($content)) {
                 $nameConverter = new OrgPrefixNameConverter();
                 $normalizer    = new ObjectNormalizer(null, $nameConverter);
-                $serializer    = new Serializer(array($normalizer), array(new JsonEncoder()));
+                $serializer    = new Serializer([$normalizer], [new JsonEncoder()]);
                 $apiResponse   = $serializer->deserialize($content);
 
                 // Simplify the API response into a simple array of version numbers

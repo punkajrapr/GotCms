@@ -40,7 +40,6 @@ class BaseRestTestCase extends WebTestCase
         $this->runCommand('doctrine:schema:update', ['--force' => true]);
 
         $this->loadFixtures($this->fixtures);
-        $this->client = static::createClient();
     }
 
     /**
@@ -92,6 +91,10 @@ class BaseRestTestCase extends WebTestCase
      */
     protected function getClient()
     {
+        if (empty($this->client)) {
+            $this->client = static::createClient();
+        }
+
         return $this->client;
     }
 

@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: gotcms_sf3_test
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: c810d8760daeebb234c17e04361a8485106f2c84
+    gotcms_api.templates_path: "%kernel.root_dir%/../src/GotCms/Bundle/ApiBundle/Tests/templates"

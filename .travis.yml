@@ -13,7 +13,7 @@ before_install:
 
 
 before_script:
-  - ./bin/console doctrine:schema:create --env test
+  - ./bin/console doctrine:schema:create --env travis
 
 script:
   - ./scripts/phpcs.sh

@@ -51,7 +51,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
             ->booleanNode('enabled')->defaultTrue()->end()
-            ->scalarNode('templates_path')->defaultValue('%kernel.root_dir%/../templates')->end()
+            ->scalarNode('templates_path')->defaultValue('%kernel.root_dir%/../var/templates')->end()
             // ->scalarNode('cache_is_active')->defaultFalse()->end()
             // ->scalarNode('cache_handler')->defaultValue('filesystem')->end()
             // ->scalarNode('cache_lifetime')->defaultValue(600)->end()

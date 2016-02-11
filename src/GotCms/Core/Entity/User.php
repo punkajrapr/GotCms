@@ -101,7 +101,7 @@ class User extends BaseEntity
     /**
      * Set login
      *
-     * @param string $login
+     * @param string $login Login
      *
      * @return User
      */
@@ -125,7 +125,7 @@ class User extends BaseEntity
     /**
      * Set email
      *
-     * @param string $email
+     * @param string $email Email
      *
      * @return User
      */
@@ -149,7 +149,7 @@ class User extends BaseEntity
     /**
      * Set firstname
      *
-     * @param string $firstname
+     * @param string $firstname Firstname
      *
      * @return User
      */
@@ -173,7 +173,7 @@ class User extends BaseEntity
     /**
      * Set lastname
      *
-     * @param string $lastname
+     * @param string $lastname Lastname
      *
      * @return User
      */
@@ -197,7 +197,7 @@ class User extends BaseEntity
     /**
      * Set password
      *
-     * @param string $password
+     * @param string $password Password
      *
      * @return User
      */
@@ -221,7 +221,7 @@ class User extends BaseEntity
     /**
      * Set isActive
      *
-     * @param boolean $isActive
+     * @param boolean $isActive Is active
      *
      * @return User
      */
@@ -245,7 +245,7 @@ class User extends BaseEntity
     /**
      * Set retrievePasswordKey
      *
-     * @param string $retrievePasswordKey
+     * @param string $retrievePasswordKey Retrieve password key
      *
      * @return User
      */
@@ -269,11 +269,11 @@ class User extends BaseEntity
     /**
      * Set retrievePasswordDate
      *
-     * @param \DateTime $retrievePasswordDate
+     * @param DateTime $retrievePasswordDate Retrieve password date
      *
      * @return User
      */
-    public function setRetrievePasswordDate($retrievePasswordDate)
+    public function setRetrievePasswordDate(DateTime $retrievePasswordDate)
     {
         $this->retrievePasswordDate = $retrievePasswordDate;
 
@@ -283,7 +283,7 @@ class User extends BaseEntity
     /**
      * Get retrievePasswordDate
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRetrievePasswordDate()
     {

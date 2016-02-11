@@ -66,7 +66,7 @@ class Datatype extends BaseEntity
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Name
      *
      * @return Datatype
      */
@@ -90,7 +90,7 @@ class Datatype extends BaseEntity
     /**
      * Set model
      *
-     * @param string $model
+     * @param string $model Model
      *
      * @return Datatype
      */
@@ -114,7 +114,7 @@ class Datatype extends BaseEntity
     /**
      * Set prevalueValue
      *
-     * @param string $prevalueValue
+     * @param string $prevalueValue Prevalue Value
      *
      * @return Datatype
      */

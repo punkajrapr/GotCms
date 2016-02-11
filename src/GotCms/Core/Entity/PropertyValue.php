@@ -70,7 +70,7 @@ class PropertyValue extends BaseEntity
     /**
      * Set value
      *
-     * @param string $value
+     * @param string $value Value
      *
      * @return PropertyValue
      */
@@ -94,11 +94,11 @@ class PropertyValue extends BaseEntity
     /**
      * Set document
      *
-     * @param \GotCms\Core\Entity\Document $document
+     * @param Document $document Document
      *
      * @return PropertyValue
      */
-    public function setDocument(\GotCms\Core\Entity\Document $document)
+    public function setDocument(Document $document)
     {
         $this->document = $document;
 
@@ -108,7 +108,7 @@ class PropertyValue extends BaseEntity
     /**
      * Get document
      *
-     * @return \GotCms\Core\Entity\Document
+     * @return Document
      */
     public function getDocument()
     {
@@ -118,11 +118,11 @@ class PropertyValue extends BaseEntity
     /**
      * Set property
      *
-     * @param \GotCms\Core\Entity\Property $property
+     * @param Property $property Property
      *
      * @return PropertyValue
      */
-    public function setProperty(\GotCms\Core\Entity\Property $property)
+    public function setProperty(Property $property)
     {
         $this->property = $property;
 
@@ -132,7 +132,7 @@ class PropertyValue extends BaseEntity
     /**
      * Get property
      *
-     * @return \GotCms\Core\Entity\Property
+     * @return Property
      */
     public function getProperty()
     {

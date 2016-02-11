@@ -73,7 +73,7 @@ class Tab extends BaseEntity
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Name
      *
      * @return Tab
      */
@@ -97,7 +97,7 @@ class Tab extends BaseEntity
     /**
      * Set description
      *
-     * @param string $description
+     * @param string $description Description
      *
      * @return Tab
      */
@@ -121,7 +121,7 @@ class Tab extends BaseEntity
     /**
      * Set order
      *
-     * @param integer $order
+     * @param integer $order Order
      *
      * @return Tab
      */
@@ -145,11 +145,11 @@ class Tab extends BaseEntity
     /**
      * Set documentType
      *
-     * @param \GotCms\Core\Entity\DocumentType $documentType
+     * @param DocumentType $documentType Document type
      *
      * @return Tab
      */
-    public function setDocumentType(\GotCms\Core\Entity\DocumentType $documentType)
+    public function setDocumentType(DocumentType $documentType)
     {
         $this->documentType = $documentType;
 
@@ -159,7 +159,7 @@ class Tab extends BaseEntity
     /**
      * Get documentType
      *
-     * @return \GotCms\Core\Entity\DocumentType
+     * @return DocumentType
      */
     public function getDocumentType()
     {

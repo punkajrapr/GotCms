@@ -29,6 +29,7 @@ namespace GotCms\Core\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -62,9 +63,18 @@ class UserAclPermission extends BaseEntity
     private $resource;
 
     /**
+     * @var ArrayCollection UserAclRole $roles
+     *
+     * Inverse Side
+     *
+     * @ORM\ManyToMany(targetEntity="UserAclRole", mappedBy="permissions", cascade={"persist", "merge"})
+     */
+    private $roles;
+
+    /**
      * Set permission
      *
-     * @param string $permission
+     * @param string $permission Permission
      *
      * @return UserAclPermission
      */
@@ -88,11 +98,11 @@ class UserAclPermission extends BaseEntity
     /**
      * Set resource
      *
-     * @param \GotCms\Core\Entity\UserAclResource $resource
+     * @param UserAclResource $resource Resource
      *
      * @return UserAclPermission
      */
-    public function setResource(\GotCms\Core\Entity\UserAclResource $resource)
+    public function setResource(UserAclResource $resource)
     {
         $this->resource = $resource;
 
@@ -102,10 +112,56 @@ class UserAclPermission extends BaseEntity
     /**
      * Get resource
      *
-     * @return \GotCms\Core\Entity\UserAclResource
+     * @return UserAclResource
      */
     public function getResource()
     {
         return $this->resource;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
+
+    /**
+     * Add role
+     *
+     * @param UserAclRole $role Role
+     *
+     * @return UserAclPermission
+     */
+    public function addRole(UserAclRole $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param UserAclRole $role Role
+     *
+     * @return UserAclPermission
+     */
+    public function removeRole(UserAclRole $role)
+    {
+        $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return ArrayCollection
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

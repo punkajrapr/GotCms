@@ -97,7 +97,7 @@ class Property extends BaseEntity
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Name
      *
      * @return Property
      */
@@ -121,7 +121,7 @@ class Property extends BaseEntity
     /**
      * Set identifier
      *
-     * @param string $identifier
+     * @param string $identifier Identifier
      *
      * @return Property
      */
@@ -145,7 +145,7 @@ class Property extends BaseEntity
     /**
      * Set description
      *
-     * @param string $description
+     * @param string $description Description
      *
      * @return Property
      */
@@ -169,7 +169,7 @@ class Property extends BaseEntity
     /**
      * Set required
      *
-     * @param boolean $required
+     * @param boolean $required Required
      *
      * @return Property
      */
@@ -193,7 +193,7 @@ class Property extends BaseEntity
     /**
      * Set order
      *
-     * @param integer $order
+     * @param integer $order Order
      *
      * @return Property
      */
@@ -217,11 +217,11 @@ class Property extends BaseEntity
     /**
      * Set tab
      *
-     * @param \GotCms\Core\Entity\Tab $tab
+     * @param Tab $tab Tab
      *
      * @return Property
      */
-    public function setTab(\GotCms\Core\Entity\Tab $tab)
+    public function setTab(Tab $tab)
     {
         $this->tab = $tab;
 
@@ -231,7 +231,7 @@ class Property extends BaseEntity
     /**
      * Get tab
      *
-     * @return \GotCms\Core\Entity\Tab
+     * @return Tab
      */
     public function getTab()
     {
@@ -241,11 +241,11 @@ class Property extends BaseEntity
     /**
      * Set datatype
      *
-     * @param \GotCms\Core\Entity\Datatype $datatype
+     * @param Datatype $datatype Datatype
      *
      * @return Property
      */
-    public function setDatatype(\GotCms\Core\Entity\Datatype $datatype)
+    public function setDatatype(Datatype $datatype)
     {
         $this->datatype = $datatype;
 
@@ -255,7 +255,7 @@ class Property extends BaseEntity
     /**
      * Get datatype
      *
-     * @return \GotCms\Core\Entity\Datatype
+     * @return Datatype
      */
     public function getDatatype()
     {

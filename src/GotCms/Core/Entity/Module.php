@@ -54,7 +54,7 @@ class Module extends BaseEntity
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Name
      *
      * @return Module
      */

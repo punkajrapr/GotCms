@@ -92,7 +92,7 @@ class DocumentType extends BaseEntity
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Name
      *
      * @return DocumentType
      */
@@ -116,7 +116,7 @@ class DocumentType extends BaseEntity
     /**
      * Set model
      *
-     * @param string $model
+     * @param string $model Model
      *
      * @return DocumentType
      */
@@ -140,7 +140,7 @@ class DocumentType extends BaseEntity
     /**
      * Set icon
      *
-     * @param string $icon
+     * @param string $icon Icon
      *
      * @return DocumentType
      */
@@ -164,7 +164,7 @@ class DocumentType extends BaseEntity
     /**
      * Set description
      *
-     * @param string $description
+     * @param string $description Description
      *
      * @return DocumentType
      */
@@ -188,7 +188,7 @@ class DocumentType extends BaseEntity
     /**
      * Set defaultView
      *
-     * @param View $defaultView
+     * @param View $defaultView Default view
      *
      * @return DocumentType
      */
@@ -212,7 +212,7 @@ class DocumentType extends BaseEntity
     /**
      * Set user
      *
-     * @param User $user
+     * @param User $user User
      *
      * @return DocumentType
      */

@@ -29,6 +29,7 @@ namespace GotCms\Core\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -58,10 +59,23 @@ class UserAclRole extends BaseEntity
      */
     private $description;
 
+
+    /**
+     * @var ArrayCollection UserAclPermission $permissions
+     * Owning Side
+     *
+     * @ORM\ManyToMany(targetEntity="UserAclPermission", inversedBy="roles", cascade={"persist", "merge"})
+     * @ORM\JoinTable(name="user_acl",
+     *   joinColumns={@ORM\JoinColumn(name="user_acl_role_id", referencedColumnName="id")},
+     *   inverseJoinColumns={@ORM\JoinColumn(name="user_acl_permission_id", referencedColumnName="id")}
+     * )
+     */
+    private $permissions;
+
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Name
      *
      * @return UserAclRole
      */
@@ -85,7 +99,7 @@ class UserAclRole extends BaseEntity
     /**
      * Set description
      *
-     * @param string $description
+     * @param string $description Description
      *
      * @return UserAclRole
      */
@@ -104,5 +118,50 @@ class UserAclRole extends BaseEntity
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->permissions = new ArrayCollection();
+    }
+
+    /**
+     * Add permission
+     *
+     * @param UserAclPermission $permission Permission
+     *
+     * @return UserAclRole
+     */
+    public function addPermission(UserAclPermission $permission)
+    {
+        $this->permissions[] = $permission;
+
+        return $this;
+    }
+
+    /**
+     * Remove permission
+     *
+     * @param UserAclPermission $permission Permission
+     *
+     * @return UserAclRole
+     */
+    public function removePermission(UserAclPermission $permission)
+    {
+        $this->permissions->removeElement($permission);
+
+        return $this;
+    }
+
+    /**
+     * Get permissions
+     *
+     * @return ArrayCollection
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
     }
 }

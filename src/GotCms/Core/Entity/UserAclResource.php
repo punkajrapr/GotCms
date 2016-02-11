@@ -39,40 +39,40 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @MappedSuperclass()
  * @ORM\Table(name="user_acl_resource",
               indexes={
-                @ORM\Index(name="fk_user_acl_resource_resource", columns={"resource"})
+                @ORM\Index(name="fk_user_acl_resource_name", columns={"name"})
               })
  * @ORM\Entity(repositoryClass="GotCms\Core\Repository\UserAclResourceRepository")
- * @UniqueEntity("resource")
+ * @UniqueEntity("name")
  */
 class UserAclResource extends BaseEntity
 {
     /**
-     * @ORM\Column(name="resource", type="string", nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false)
      * @Assert\NotBlank()
      */
-    private $resource;
+    private $name;
 
     /**
-     * Set resource
+     * Set name
      *
-     * @param string $resource
+     * @param string $name Name
      *
      * @return UserAclResource
      */
-    public function setResource($resource)
+    public function setName($name)
     {
-        $this->resource = $resource;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get resource
+     * Get name
      *
      * @return string
      */
-    public function getResource()
+    public function getName()
     {
-        return $this->resource;
+        return $this->name;
     }
 }

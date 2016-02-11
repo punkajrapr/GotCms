@@ -67,4 +67,64 @@ class RepositoryService extends BaseService
     {
         return $this->em()->getRepository('GotCmsCore:Script');
     }
+
+    /**
+     * Get Document repository
+     *
+     * @return DocumentRepository
+     */
+    public function getDocumentRepository()
+    {
+        return $this->em()->getRepository('GotCmsCore:Document');
+    }
+
+    /**
+     * Get DocumentType repository
+     *
+     * @return DocumentTypeRepository
+     */
+    public function getDocumentTypeRepository()
+    {
+        return $this->em()->getRepository('GotCmsCore:DocumentType');
+    }
+
+    /**
+     * Get module repository
+     *
+     * @return ModuleRepository
+     */
+    public function getModuleRepository()
+    {
+        return $this->em()->getRepository('GotCmsCore:Module');
+    }
+
+    /**
+     * Get property repository
+     *
+     * @return PropertyRepository
+     */
+    public function getPropertyRepository()
+    {
+        return $this->em()->getRepository('GotCmsCore:Property');
+    }
+
+    /**
+     * Get property value repository
+     *
+     * @return PropertyValueRepository
+     */
+    public function getPropertyValueRepository()
+    {
+        return $this->em()->getRepository('GotCmsCore:PropertyValue');
+    }
+
+    /**
+     * Get user repository
+     *
+     * @return UserRepository
+     */
+    public function getUserRepository()
+    {
+        return $this->em()->getRepository('GotCmsCore:User');
+    }
 }

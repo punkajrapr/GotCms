@@ -141,7 +141,7 @@ class Document extends BaseEntity
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Name
      *
      * @return Document
      */
@@ -165,7 +165,7 @@ class Document extends BaseEntity
     /**
      * Set urlKey
      *
-     * @param string $urlKey
+     * @param string $urlKey Url key
      *
      * @return Document
      */
@@ -189,7 +189,7 @@ class Document extends BaseEntity
     /**
      * Set status
      *
-     * @param integer $status
+     * @param integer $status Status
      *
      * @return Document
      */
@@ -213,7 +213,7 @@ class Document extends BaseEntity
     /**
      * Set order
      *
-     * @param integer $order
+     * @param integer $order Order
      *
      * @return Document
      */
@@ -237,7 +237,7 @@ class Document extends BaseEntity
     /**
      * Set showInNav
      *
-     * @param boolean $showInNav
+     * @param boolean $showInNav Show in nav
      *
      * @return Document
      */
@@ -261,7 +261,7 @@ class Document extends BaseEntity
     /**
      * Set canBeCached
      *
-     * @param boolean $canBeCached
+     * @param boolean $canBeCached Can be cached
      *
      * @return Document
      */
@@ -285,7 +285,7 @@ class Document extends BaseEntity
     /**
      * Set locale
      *
-     * @param string $locale
+     * @param string $locale Locale
      *
      * @return Document
      */
@@ -309,11 +309,11 @@ class Document extends BaseEntity
     /**
      * Set view
      *
-     * @param \GotCms\Core\Entity\View $view
+     * @param View $view View
      *
      * @return Document
      */
-    public function setView(\GotCms\Core\Entity\View $view)
+    public function setView(View $view)
     {
         $this->view = $view;
 
@@ -323,7 +323,7 @@ class Document extends BaseEntity
     /**
      * Get view
      *
-     * @return \GotCms\Core\Entity\View
+     * @return View
      */
     public function getView()
     {
@@ -333,11 +333,11 @@ class Document extends BaseEntity
     /**
      * Set layout
      *
-     * @param \GotCms\Core\Entity\Layout $layout
+     * @param Layout $layout Layout
      *
      * @return Document
      */
-    public function setLayout(\GotCms\Core\Entity\Layout $layout)
+    public function setLayout(Layout $layout)
     {
         $this->layout = $layout;
 
@@ -347,7 +347,7 @@ class Document extends BaseEntity
     /**
      * Get layout
      *
-     * @return \GotCms\Core\Entity\Layout
+     * @return Layout
      */
     public function getLayout()
     {
@@ -357,11 +357,11 @@ class Document extends BaseEntity
     /**
      * Set user
      *
-     * @param \GotCms\Core\Entity\User $user
+     * @param User $user User
      *
      * @return Document
      */
-    public function setUser(\GotCms\Core\Entity\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
 
@@ -371,7 +371,7 @@ class Document extends BaseEntity
     /**
      * Get user
      *
-     * @return \GotCms\Core\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -381,11 +381,11 @@ class Document extends BaseEntity
     /**
      * Set documentType
      *
-     * @param \GotCms\Core\Entity\DocumentType $documentType
+     * @param DocumentType $documentType Document type
      *
      * @return Document
      */
-    public function setDocumentType(\GotCms\Core\Entity\DocumentType $documentType)
+    public function setDocumentType(DocumentType $documentType)
     {
         $this->documentType = $documentType;
 
@@ -395,7 +395,7 @@ class Document extends BaseEntity
     /**
      * Get documentType
      *
-     * @return \GotCms\Core\Entity\DocumentType
+     * @return DocumentType
      */
     public function getDocumentType()
     {
@@ -405,11 +405,11 @@ class Document extends BaseEntity
     /**
      * Set parent
      *
-     * @param \GotCms\Core\Entity\Document $parent
+     * @param Document $parent Parent document
      *
      * @return Document
      */
-    public function setParent(\GotCms\Core\Entity\Document $parent = null)
+    public function setParent(Document $parent = null)
     {
         $this->parent = $parent;
 
@@ -419,7 +419,7 @@ class Document extends BaseEntity
     /**
      * Get parent
      *
-     * @return \GotCms\Core\Entity\Document
+     * @return Document
      */
     public function getParent()
     {

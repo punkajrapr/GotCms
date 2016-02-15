@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Liip\FunctionalTestBundle\LiipFunctionalTestBundle(),
+            new GotCms\Bundle\BackBundle\GotCmsBackBundle(),
             new GotCms\Bundle\ApiBundle\GotCmsApiBundle(),
         ];
 

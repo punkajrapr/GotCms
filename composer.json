@@ -41,6 +41,8 @@
         "twig/extensions": "^1.3"
     },
     "require-dev": {
+        "packagist/yuicompressor-bin": "dev-master",
+        "oyejorge/less.php": "~1.7.0.9",
         "liip/functional-test-bundle": "^1.4",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^2.7",
@@ -69,7 +71,7 @@
         ]
     },
     "config": {
-        "bin-dir": "bin",
+        "bin-dir": "vendor/bin",
         "platform": {
             "php": "5.5.9"
         }

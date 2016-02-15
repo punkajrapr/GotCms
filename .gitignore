@@ -27,3 +27,4 @@
 /src/GotCms/Bundle/ApiBundle/Tests/templates/layouts/*
 /src/GotCms/Bundle/ApiBundle/Tests/templates/scripts/*
 !/src/GotCms/Bundle/ApiBundle/Tests/templates/*/.gitkeep
+web/assets/vendor

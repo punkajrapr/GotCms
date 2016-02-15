@@ -38,9 +38,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class IndexController extends Controller
 {
-
     /**
-     * @Route("/")
+     * Index action when using /, tricks to use / or not when
+     * requesting /admin
+     *
+     * @Route ("/")
+     *
+     * @return null
      */
     public function indexAction()
     {
@@ -48,7 +52,13 @@ class IndexController extends Controller
     }
 
     /**
+     * Default action
+     *
+     * @param string $path Path
+     *
      * @Route("/{path}", requirements={"path"=".*"})
+     *
+     * @return null
      */
     public function allAction($path)
     {

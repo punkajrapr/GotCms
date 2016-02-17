@@ -1,0 +1,59 @@
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gotcms-main-menu">
+        <span class="sr-only">{{ 'TOGGLE_NAV' | translate }}</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a ui-sref="app.dashboard" href class="navbar-brand">
+        <span class="glyphicon glyphicon-flash"></span>
+        GotCms Admin
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="gotcms-main-menu">
+      <ul class="nav navbar-nav">
+        <li>
+          <a ui-sref="app.dashboard" href title="{{ 'DASHBOARD' | translate }}">
+            <span class="glyphicon glyphicon-dashboard"></span> {{ 'DASHBOARD' | translate }}
+          </a>
+        </li>
+        <li>
+          <a ui-sref="app.content" href title="{{ 'CONTENT' | translate }}">
+            <span class="glyphicon glyphicon-edit"></span> {{ 'CONTENT' | translate }}
+          </a>
+        </li>
+        <li>
+          <a ui-sref="app.development" href title="{{ 'DEVELOPMENT' | translate }}">
+            <span class="glyphicon glyphicon-list-alt"></span> {{ 'DEVELOPMENT' | translate }}
+          </a>
+        </li>
+        <li>
+          <a ui-sref="app.module" href title="{{ 'MODULES' | translate }}">
+            <span class="glyphicon glyphicon-link"></span> {{ 'MODULES' | translate }}
+          </a>
+        </li>
+        <li>
+          <a ui-sref="app.stats" href title="{{ 'STATS' | translate }}">
+            <span class="glyphicon glyphicon-stats"></span> {{ 'STATS' | translate }}
+          </a>
+        </li>
+        <li>
+          <a ui-sref="app.config" href title="{{ 'CONFIG' | translate }}">
+            <span class="glyphicon glyphicon-cog"></span> {{ 'CONFIG' | translate }}
+          </a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a ui-sref="app.logout" href class="" title="{{ 'LOGOUT' | translate }}">
+            <span class="glyphicon glyphicon-off"></span> {{ 'LOGOUT' | translate }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -11,5 +11,4 @@ then
 fi
 
 cssDirectory="../src/GotCms/Bundle/BackBundle/Resources"
-$lessc -x "$cssDirectory/assets/css/gotcms.less" > "$cssDirectory/public/css/gotcms.min.css"
-$lessc -x "$cssDirectory/assets/css/gotcms-install.less" > "$cssDirectory/public/css/gotcms-install.min.css"
+$lessc -x "$cssDirectory/assets/less/gotcms.less" > "$cssDirectory/public/css/gotcms.min.css"

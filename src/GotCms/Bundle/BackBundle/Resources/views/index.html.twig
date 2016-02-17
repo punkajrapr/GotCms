@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="GotCms">
+<html ng-app="gotcms">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,13 +12,12 @@
     <meta http-equiv="pragma" content="no-cache" />
 
     <title>Admin panel - GotCms</title>
+    <base href="/admin"></base>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
-    <link rel="stylesheet" href="assets/css/app.min-ec475889.css"/>
+    <link href="{{ 'bundles/gotcmsback/css/gotcms.min.css' }}" rel="stylesheet" type="text/css" />
   </head>
-
   <body class="no-menu" ng-class="{'one-page': pageType == 'onePage'}">
     <ng-switch on="pageType">
       <div ng-switch-when="onePage">
@@ -44,7 +43,6 @@
       <div ng-switch-default>
         <header>
           <div ui-view="topbar"></div>
-          <ng-include src="'components/gcbackend/partials/navigation.html'"></ng-include>
         </header>
 
         <div class="main-container container">
@@ -63,5 +61,17 @@
         </a>
       </div>
     </ng-switch>
+
+    {% javascripts '@GotCmsBackBundle/Resources/public/js/vendor.min.js' %}
+      <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@GotCmsBackBundle/Resources/public/components/**/*.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@GotCmsBackBundle/Resources/public/js/gotcms.min.js' %}
+      <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
   </body>
 </html>

@@ -162,7 +162,7 @@
     }
     .ui-datepicker-prev:before, .ui-datepicker-next:before{
         display:inline;
-        font-family:@GlyphiconsFont;
+        font-family:@icons-font;
         font-size:14px;
         content:"\f060";
         color:#393939;
@@ -198,14 +198,14 @@
                 background-color:@gray94;
             }
             &.ui-state-highlight{
-                background-color:@lightOrange;
+                background-color:@main-color-light;
                 border:1px dashed @gray60;
                 min-height:22px;
                 padding:1px;
                 margin:0;
             }
             &.ui-state-active{
-                background-color:@orange;
+                background-color:@main-color;
                 color:@white;
             }
             &.ui-priority-secondary{
@@ -247,7 +247,7 @@
     .ui-dialog-titlebar{
         background-color:#f1f1f1;
         font-size:16px;
-        color:@darkOrange;
+        color:@main-color-dark;
         padding:0;
     }
     .ui-dialog-title{
@@ -285,7 +285,7 @@
         &:before{
             content:"\e014";
             display:inline;
-            font-family:@GlyphiconsFont;
+            font-family:@icons-font;
             font-size:16px;
         }
         &:hover{
@@ -320,7 +320,7 @@
             }
         }
         &.ui-state-hover{
-            color:@lightOrange;
+            color:@main-color-light;
             background-color:@gray94;
         }
         a{
@@ -337,7 +337,7 @@
             top:9px;
             &:before{
                 display:inline;
-                font-family:@GlyphiconsFont;
+                font-family:@icons-font;
                 -webkit-font-smoothing:antialiased;
                 font-size:10px;
                 content:"\e080";
@@ -377,7 +377,7 @@
             &.ui-tabs-active > a{
                 background-color:@white;
                 border:1px solid;
-                border-color:@darkOrange @gray80 transparent;
+                border-color:@main-color-dark @gray80 transparent;
                 border-top-width:2px;
                 -webkit-box-shadow:0 -2px 3px 0 rgba(0, 0, 0, 0.15);
                 -moz-box-shadow:0 -2px 3px 0 rgba(0, 0, 0, 0.15);
@@ -422,13 +422,13 @@
                 text-indent:0;
                 &:before{
                     content:"\f105";
-                    font-family:@GlyphiconsFont;
+                    font-family:@icons-font;
                     font-size:14px;
                     display:inline;
                 }
             }
             &:hover, &.ui-state-focus, &.ui-state-active{
-                background-color:@lightOrange;
+                background-color:@main-color-light;
                 color:@white;
                 margin:auto;
                 font-weight:normal;
@@ -461,8 +461,8 @@
 .ui-autocomplete-category{
     padding:6px;
     position:relative;
-    background-color:@lightOrange;
-    color:@darkOrange;
+    background-color:@main-color-light;
+    color:@main-color-dark;
     font-weight:bolder;
     border:1px solid @gray76;
     border-width:1px 0;
@@ -522,7 +522,7 @@
 }
 
 .ui-progressbar-value{
-    background-color:@darkOrange;
+    background-color:@main-color-dark;
 }
 
 .ui-corner-all{
@@ -550,7 +550,7 @@ th[aria-selected=true]{
 .ui-grid-ico-sort:before{
     display:inline;
     content:"\f0d7";
-    font-family:@GlyphiconsFont;
+    font-family:@icons-font;
     font-size:12px;
 }
 
@@ -581,8 +581,8 @@ th[aria-selected=true]{
                     background-color:@white;
                     border-radius:100%;
                     &:hover{
-                        color:@lightOrange;
-                        border-color:@lightOrange;
+                        color:@main-color-light;
+                        border-color:@main-color-light;
                     }
                     &:before{
                         width:20px;
@@ -632,14 +632,14 @@ th[aria-selected=true]{
             margin:0 1px;
         }
         &:before{
-            font-family:@GlyphiconsFont;
+            font-family:@icons-font;
             display:inline;
         }
     }
 }
 
 .ui-icon-pencil{
-    color:@darkOrange;
+    color:@main-color-dark;
     &:before{
         content:"\f040";
     }
@@ -732,7 +732,7 @@ th[aria-selected=true]{
     position: relative;
     top: 1px;
     display: inline-block;
-    font-family: @GlyphiconsFont;
+    font-family: @icons-font;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
     font-weight: normal;

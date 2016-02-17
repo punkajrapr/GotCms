@@ -1,28 +1,28 @@
 a{
-    color:@darkOrange;
+    color:@main-color-dark;
     &:hover, &:focus{
-        color:@lightOrange;
+        color:@main-color-light;
     }
 }
 
 h1, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
-    font-family:@defaultFont;
+    font-family:@default-font;
 }
 
 h2{
-    font-family:@defaultFont;
+    font-family:@default-font;
     font-size:26px;
     font-weight:normal;
 }
 
 h3{
-    font-family:@defaultFont;
+    font-family:@default-font;
     font-size:22px;
     font-weight:normal;
 }
 
 h4{
-    font-family:@defaultFont;
+    font-family:@default-font;
     font-size:18px;
     font-weight:normal;
 }
@@ -58,9 +58,9 @@ h4{
 }
 
 .btn-link{
-    color:@darkOrange;
+    color:@main-color-dark;
     &:hover, &:focus{
-        color:@lightOrange;
+        color:@main-color-light;
     }
 }
 
@@ -73,6 +73,11 @@ body{
     padding-bottom:0;
     padding-top:70px;
     padding-top:86px;
+
+    &.install {
+        padding-top:49px;
+    }
+
     &:before{
         background-color:@white;
         bottom:0;
@@ -210,7 +215,7 @@ header .brand:hover, .navbar .brand:focus{
         border-bottom:1px dotted @gray80;
         margin:0 0 12px;
         h1{
-            color:@darkOrange;
+            color:@main-color-dark;
             font-size:24px;
             font-weight:lighter;
             margin:0 8px;
@@ -439,7 +444,7 @@ header .brand:hover, .navbar .brand:focus{
         z-index:2;
     }
     > input:focus + [class*="glyphicon-"]{
-        color:@orange;
+        color:@main-color;
     }
     &.input-glyphicon-right{
         > input{
@@ -502,7 +507,6 @@ header .brand:hover, .navbar .brand:focus{
     border-color:#df8f8f;
     color:#665252;
 }
-
 .sidebar{
     width:250px;
     position:fixed;
@@ -535,8 +539,8 @@ header .brand:hover, .navbar .brand:focus{
     a{
         &:hover{
             .caret{
-                border-bottom-color:@darkOrange;
-                border-top-color:@darkOrange;
+                border-bottom-color:@main-color-dark;
+                border-top-color:@main-color-dark;
             }
         }
     }
@@ -584,7 +588,7 @@ header .brand:hover, .navbar .brand:focus{
             font-size:13px;
             text-decoration:none;
             &:focus, &:hover{
-                color:@darkOrange;
+                color:@main-color-dark;
             }
             > [class*="glyphicon-"]:first-child{
                 margin-top:-5px;
@@ -605,18 +609,18 @@ header .brand:hover, .navbar .brand:focus{
                 width:3px;
                 max-width:3px;
                 overflow:hidden;
-                background-color:@lightOrange;
+                background-color:@main-color-light;
             }
         }
         a:hover>.arrow,
         &.active>a>.arrow,
         &.open>a>.arrow{
-            color:@darkOrange;
+            color:@main-color-dark;
         }
         .open{
             > a{
                 background-color:@gray94;
-                color:@darkOrange;
+                color:@main-color-dark;
             }
         }
         &.open{
@@ -661,7 +665,7 @@ header .brand:hover, .navbar .brand:focus{
                 right:-2px;
                 top:-1px;
                 bottom:0;
-                border-right:2px solid @darkOrange;
+                border-right:2px solid @main-color-dark;
             }
             > span:after, > a:after{
                 display:block;
@@ -671,13 +675,13 @@ header .brand:hover, .navbar .brand:focus{
                 top:4px;
                 border:8px solid transparent;
                 border-width:14px 10px;
-                border-right-color:@darkOrange;
+                border-right-color:@main-color-dark;
             }
             &.no-active-child > a:after{
                 display:inline-block !important;
             }
             > a, > a:hover, > a:focus, > a:active{
-                color:@darkOrange;
+                color:@main-color-dark;
                 font-weight:bold;
                 font-size:13px;
             }
@@ -756,15 +760,15 @@ header .brand:hover, .navbar .brand:focus{
                 }
                 &:hover{
                     text-decoration:none;
-                    color:@darkOrange;
+                    color:@main-color-dark;
                 }
             }
             &.active{
                 > a,  > span{
-                    color:@darkOrange;
+                    color:@main-color-dark;
                 }
                 > a >[class*="glyphicon-"]:first-child{
-                    color:@lightOrange;
+                    color:@main-color-light;
                 }
             }
             &.active>a>[class*="glyphicon-"]:first-child, &.active>span>[class*="glyphicon-"]:first-child, &:hover>a>[class*=glyphicon-]:first-child{
@@ -830,7 +834,7 @@ header .brand:hover, .navbar .brand:focus{
             background:transparent;
             top:5px;
             left:4px;
-            border:3px solid @lightOrange;
+            border:3px solid @main-color-light;
             border-top:none;
             border-right:none;
             -webkit-transform:rotate(-45deg);
@@ -896,7 +900,7 @@ header .brand:hover, .navbar .brand:focus{
     padding:4px 12px;
     background:@gray94;
     border:1px solid @gray80;
-    color:@darkOrange;
+    color:@main-color-dark;
     text-decoration:none;
     font-weight:bold;
     -webkit-box-sizing:border-box;
@@ -917,7 +921,7 @@ header .brand:hover, .navbar .brand:focus{
         z-index:1;
     }
     &:hover{
-        color:@darkOrange;
+        color:@main-color-dark;
         background:@gray94;
     }
 }
@@ -965,7 +969,7 @@ header .brand:hover, .navbar .brand:focus{
     }
     .ui-button{
         color:@white;
-        background-color:@orange;
+        background-color:@main-color;
         border-color:#eea236;
         display:inline-block;
         padding:6px 12px;
@@ -1014,8 +1018,8 @@ header .brand:hover, .navbar .brand:focus{
         border-color:transparent;
     }
     .ui-state-active{
-        background:@orange;
-        border-color:@orange;
+        background:@main-color;
+        border-color:@main-color;
         color:@white;
     }
     .elfinder-droppable-active{
@@ -1050,12 +1054,12 @@ header .brand:hover, .navbar .brand:focus{
 }
 
 .elfinder-cwd-view-icons .elfinder-cwd-file .elfinder-cwd-filename.ui-state-hover, .elfinder-cwd table td.ui-state-hover, .elfinder-button-menu .ui-state-hover{
-    background:@orange;
+    background:@main-color;
     color:@white;
 }
 
 .elfinder-contextmenu .ui-state-hover{
-    background:@orange;
+    background:@main-color;
     color:@white;
 }
 
@@ -1102,4 +1106,52 @@ header .brand:hover, .navbar .brand:focus{
     .menu-toggler-text{display:none;}
     #menu-toggler{width:27px;}
     body{padding-top:117px;}
+}
+
+
+.install-body {
+    tr {
+        td {
+            &.error {
+                background-repeat:no-repeat;
+                background-position:5px 50%;
+                padding-left:25px;
+                background-image:url(../images/notification/error.png);
+                background-color:#df8f8f;
+            }
+            &.warning {
+                background-repeat:no-repeat;
+                background-position:5px 50%;
+                padding-left:25px;
+                background-image:url(../images/notification/warning.png);
+                background-color:#e6db55;
+            }
+            &.success {
+                background-repeat:no-repeat;
+                background-position:5px 50%;
+                padding-left:25px;
+                background-image:url(../images/notification/success.png);
+                background-color:#9adf8f;
+            }
+        }
+    }
+}
+
+.done > a {
+    font-weight:bold;
+}
+
+.list-group {
+    &.install-in-progress {
+        padding-left:35px;
+        background:url(../images/ajax-loader.gif) no-repeat scroll 10px 15px;
+    }
+    &.install-complete {
+        padding-left:35px;
+        background:url(../images/notification/success.png) no-repeat scroll 10px 13px;
+    }
+    &.install-error {
+        padding-left:35px;
+        background:url(../images/notification/error.png) no-repeat scroll 10px 13px;
+    }
 }

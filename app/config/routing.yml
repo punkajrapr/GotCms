@@ -1,7 +1,3 @@
 _gotcms_api:
     resource: "@GotCmsApiBundle/Resources/config/routing.yml"
     prefix:   /api
-
-_gotcms_back:
-    resource: "@GotCmsBackBundle/Resources/config/routing.yml"
-    prefix:   /admin

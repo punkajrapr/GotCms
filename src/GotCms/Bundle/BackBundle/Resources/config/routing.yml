@@ -1,3 +1,0 @@
-gotcms_back:
-  resource: "@GotCmsBackBundle/Controller/IndexController.php"
-  type:     annotation

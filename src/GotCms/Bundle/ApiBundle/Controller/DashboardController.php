@@ -46,38 +46,38 @@ class DashboardController extends BaseRestController
      */
     public function getDashboardAction()
     {
-        $data                    = array();
+        $data                    = [];
         $data['version']         = Version::VERSION;
         $data['versionIsLatest'] = Version::isLatest();
         $data['versionLatest']   = Version::getLatest();
 
-        $documents                        = $this->repos()->getDocumentRepository();
-        $contentStats                     = array();
-        $contentStats['onlineDocuments'] = array(
+        $documents                       = $this->repos()->getDocumentRepository();
+        $contentStats                    = [];
+        $contentStats['onlineDocuments'] = [
             'count' => count($documents->getAvailableDocuments()),
             'label' => 'Online documents',
-        );
+        ];
 
-        $contentStats['totalDocuments'] = array(
+        $contentStats['totalDocuments'] = [
             'count' => count($documents->findAll()),
             'label' => 'Total documents',
-        );
+        ];
 
 
         $data['stats'] = [];
         $data['stats']['content'] = $contentStats;
 
         // $visitorModel      = new Visitor();
-        // $data['userStats'] = array(
-        //     'totalVisitors' => array(
+        // $data['userStats'] = [
+        //     'totalVisitors' => [
         //         'count' => $visitorModel->getTotalVisitors(),
         //         'label' => 'Total visitors',
-        //     ),
-        //     'totalVisits' => array(
+        //     ],
+        //     'totalVisits' => [
         //         'count' => $visitorModel->getTotalPageViews(),
         //         'label' => 'Total page views',
-        //     ),
-        // );
+        //     ],
+        // ];
         $data['stats']['user'] = [];
         $data['widgets'] = [];
 
@@ -86,7 +86,7 @@ class DashboardController extends BaseRestController
         // $data['dashboardSortable'] = !empty($widgets['sortable']) ? Json::encode($widgets['sortable']) : '{}';
         // $data['dashboardWelcome']  = !empty($widgets['welcome']);
 
-        // $this->events()->trigger(__CLASS__, 'dashboard', $this, array('widgets' => &$data['customWidgets']));
+        // $this->events()->trigger(__CLASS__, 'dashboard', $this, ['widgets' => &$data['customWidgets']));
 
         return $data;
     }
@@ -104,7 +104,7 @@ class DashboardController extends BaseRestController
         $config     = @unserialize($coreConfig->getValue('dashboard_widgets'));
 
         if (empty($config)) {
-            $config = array();
+            $config = [];
         }
 
         if (!empty($data['dashboard'])) {
@@ -115,6 +115,6 @@ class DashboardController extends BaseRestController
 
         $coreConfig->setValue('dashboard_widgets', serialize($config));
 
-        return array('success' => true);
+        return;
     }
 }

@@ -28,7 +28,8 @@ namespace GotCms\Core;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Zend\Http\Client;
+use Symfony\Component\HttpFoundation\Response;
+use GuzzleHttp\Client;
 
 /**
  * Class to store and retrieve version
@@ -77,18 +78,14 @@ final class Version
             self::$latestVersion = 'not available';
             $url                 = 'https://api.github.com/repos/GotCms/GotCms/git/refs/tags';
             try {
-                $client = new Client(
+                $client   = new Client();
+                $response = $client->request(
+                    'GET',
                     $url,
-                    [
-                        'adapter' => 'Zend\Http\Client\Adapter\Curl',
-                        'timeout' => 2,
-                        'ssltransport' => STREAM_CRYPTO_METHOD_TLS_CLIENT,
-                        'sslverifypeer' => false
-                    ]
+                    ['verify' => false]
                 );
 
-                $response = $client->send();
-                if ($response->isSuccess()) {
+                if ($response->getStatusCode() == Response::HTTP_OK) {
                     $content = $response->getBody();
                 }
             } catch (\Exception $e) {
@@ -101,10 +98,7 @@ final class Version
             }
 
             if (!empty($content)) {
-                $nameConverter = new OrgPrefixNameConverter();
-                $normalizer    = new ObjectNormalizer(null, $nameConverter);
-                $serializer    = new Serializer([$normalizer], [new JsonEncoder()]);
-                $apiResponse   = $serializer->deserialize($content);
+                $apiResponse = json_decode($content, true);
 
                 // Simplify the API response into a simple array of version numbers
                 $tags = array_map(

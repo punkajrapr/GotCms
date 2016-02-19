@@ -1,3 +1,8 @@
+gotcms_api_dashboard:
+  resource: "@GotCmsApiBundle/Controller/DashboardController.php"
+  type:     rest
+  defaults: {_format: json}
+
 gotcms_api_content_translation:
   resource: "@GotCmsApiBundle/Controller/Content/TranslationController.php"
   type:     rest

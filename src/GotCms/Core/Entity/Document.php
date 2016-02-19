@@ -47,6 +47,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Document extends BaseEntity
 {
     /**
+     * @const STATUS_DISABLE
+     */
+    const STATUS_DISABLE = 0;
+    /**
+     * @const STATUS_ENABLE
+     */
+    const STATUS_ENABLE = 1;
+
+    /**
      * @ORM\Column(name="name", type="string", nullable=false)
      * @Assert\NotBlank()
      */

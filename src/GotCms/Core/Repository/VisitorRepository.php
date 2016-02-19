@@ -26,27 +26,13 @@
  */
 namespace GotCms\Core\Repository;
 
-use GotCms\Core\Entity\Document;
-
 /**
- * Document Repository
+ * Visitor Repository
  *
  * @category   GotCms\Core
  * @package    GotCms\Core
  * @subpackage Repository
  */
-class DocumentRepository extends BaseRepository
+class VisitorRepository extends BaseRepository
 {
-    /**
-     * Get available documents
-     *
-     * @return array
-     */
-    public function getAvailableDocuments()
-    {
-        return $this->findByStatus(
-            Document::STATUS_ENABLE,
-            array('order' => 'DESC', 'createdAt' => 'ASC')
-        );
-    }
 }

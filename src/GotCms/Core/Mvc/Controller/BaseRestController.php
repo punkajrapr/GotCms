@@ -184,7 +184,7 @@ class BaseRestController extends FOSRestController
      *
      * @param UserModel $userModel User model
      *
-     * @return \Zend\Http\Response|null
+     * @return null
      */
     protected function checkAcl(UserModel $userModel)
     {

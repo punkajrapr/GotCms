@@ -53,36 +53,39 @@ class DashboardController extends BaseRestController
 
         $documents                        = $this->repos()->getDocumentRepository();
         $contentStats                     = array();
-        $contentStats['online_documents'] = array(
+        $contentStats['onlineDocuments'] = array(
             'count' => count($documents->getAvailableDocuments()),
             'label' => 'Online documents',
         );
 
-        $contentStats['total_documents'] = array(
+        $contentStats['totalDocuments'] = array(
             'count' => count($documents->findAll()),
             'label' => 'Total documents',
         );
 
-        $data['contentStats'] = $contentStats;
+
+        $data['stats'] = [];
+        $data['stats']['content'] = $contentStats;
 
         // $visitorModel      = new Visitor();
         // $data['userStats'] = array(
-        //     'total_visitors' => array(
+        //     'totalVisitors' => array(
         //         'count' => $visitorModel->getTotalVisitors(),
         //         'label' => 'Total visitors',
         //     ),
-        //     'total_visits' => array(
+        //     'totalVisits' => array(
         //         'count' => $visitorModel->getTotalPageViews(),
         //         'label' => 'Total page views',
         //     ),
         // );
+        $data['stats']['user'] = [];
+        $data['widgets'] = [];
 
         // $coreConfig                = $this->getServiceLocator()->get('CoreConfig');
         // $widgets                   = @unserialize($coreConfig->getValue('dashboard_widgets'));
         // $data['dashboardSortable'] = !empty($widgets['sortable']) ? Json::encode($widgets['sortable']) : '{}';
         // $data['dashboardWelcome']  = !empty($widgets['welcome']);
 
-        // $data['customWidgets'] = array();
         // $this->events()->trigger(__CLASS__, 'dashboard', $this, array('widgets' => &$data['customWidgets']));
 
         return $data;

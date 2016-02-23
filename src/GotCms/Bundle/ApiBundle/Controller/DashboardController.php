@@ -64,7 +64,7 @@ class DashboardController extends BaseRestController
         ];
 
 
-        $data['stats'] = [];
+        $data['stats']            = [];
         $data['stats']['content'] = $contentStats;
 
         // $visitorModel      = new Visitor();
@@ -79,7 +79,7 @@ class DashboardController extends BaseRestController
         //     ],
         // ];
         $data['stats']['user'] = [];
-        $data['widgets'] = [];
+        $data['widgets']       = [];
 
         // $coreConfig                = $this->getServiceLocator()->get('CoreConfig');
         // $widgets                   = @unserialize($coreConfig->getValue('dashboard_widgets'));

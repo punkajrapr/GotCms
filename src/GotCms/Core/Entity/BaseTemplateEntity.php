@@ -64,6 +64,7 @@ abstract class BaseTemplateEntity extends BaseEntity
 
     /**
      * @ORM\Column(name="content", type="text", nullable=true)
+     * @TODO remove this field
      */
     private $content;
 

@@ -129,6 +129,10 @@ class SaveContent
         $filePath = $this->getTemplatePath($entity->getType(), $entity->getIdentifier());
 
         if ($read) {
+            if (!$fs->exists($filePath)) {
+                $fs->touch($filePath);
+            }
+
             return $entity->setContent(file_get_contents($filePath));
         }
 

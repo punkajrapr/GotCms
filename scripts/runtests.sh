@@ -18,4 +18,4 @@ else
 fi
 
 phpunit_opts="-c ../ -d zend.enable_gc=0 --verbose"
-$phpunit $phpunit_opts
+$phpunit $phpunit_opts $1

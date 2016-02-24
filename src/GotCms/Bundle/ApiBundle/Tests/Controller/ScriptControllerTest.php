@@ -107,7 +107,7 @@ class ScriptControllerTest extends BaseRestTestCase
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/scripts/1'
+            'api/development/scripts/' . $this->getReference('script1')->getId()
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -141,7 +141,7 @@ class ScriptControllerTest extends BaseRestTestCase
             Response::HTTP_BAD_REQUEST,
             $client
         );
-        $this->assertContains('.identifier:\n    This value is not valid.', $jsonResponse);
+        $this->assertContains('"identifier":"This value is not valid."', $jsonResponse);
     }
 
     /**
@@ -177,11 +177,11 @@ class ScriptControllerTest extends BaseRestTestCase
      */
     public function testPutScriptAction()
     {
-        $script = $this->repos()->getScriptRepository()->findOneById(1);
+        $script = $this->repos()->getScriptRepository()->findOneById($this->getReference('script1')->getId());
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/scripts/1',
+            'api/development/scripts/' . $this->getReference('script1')->getId(),
             [
                 'identifier' => 'new-identifier',
                 'description' => 'desc',
@@ -210,11 +210,11 @@ class ScriptControllerTest extends BaseRestTestCase
      */
     public function testPutScriptActionWithInvalidData()
     {
-        $script = $this->repos()->getScriptRepository()->findOneById(1);
+        $script = $this->repos()->getScriptRepository()->findOneById($this->getReference('script1')->getId());
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/scripts/1',
+            'api/development/scripts/' . $this->getReference('script1')->getId(),
             [
                 'identifier' => '&é(-è)',
             ]
@@ -225,7 +225,7 @@ class ScriptControllerTest extends BaseRestTestCase
             Response::HTTP_BAD_REQUEST,
             $client
         );
-        $this->assertContains('.identifier:\n    This value is not valid.', $jsonResponse);
+        $this->assertContains('"identifier":"This value is not valid."', $jsonResponse);
     }
 
     /**
@@ -255,11 +255,11 @@ class ScriptControllerTest extends BaseRestTestCase
      */
     public function testDeleteScriptActionWithValidId()
     {
-        $script = $this->repos()->getScriptRepository()->findOneById(1);
+        $script = $this->repos()->getScriptRepository()->findOneById($this->getReference('script1')->getId());
         $client = $this->getClient();
         $client->request(
             'DELETE',
-            'api/development/scripts/1'
+            'api/development/scripts/' . $this->getReference('script1')->getId()
         );
         $this->assertInstanceOf('GotCms\\Core\\Entity\\Script', $script);
         $jsonResponse = $client->getResponse()->getContent();

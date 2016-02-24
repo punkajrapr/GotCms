@@ -77,7 +77,7 @@ class BaseTemplateController extends BaseRestController
         $validator = $this->container->get('validator');
         $errors    = $validator->validate($entity);
         if (!empty(count($errors))) {
-            return $this->badRequest((string) $errors);
+            return $this->badRequest($errors);
         }
 
         $this->em()->persist($entity);
@@ -115,7 +115,7 @@ class BaseTemplateController extends BaseRestController
         $validator = $this->container->get('validator');
         $errors    = $validator->validate($entity);
         if (!empty(count($errors))) {
-            return $this->badRequest((string) $errors);
+            return $this->badRequest($errors);
         }
 
         $this->em()->persist($entity);

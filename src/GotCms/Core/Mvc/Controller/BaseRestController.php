@@ -33,6 +33,7 @@ use GotCms\Core\User\Model as UserModel;
 use GotCms\Core\User\Role\Model as RoleModel;
 use Monolog\Logger;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -268,53 +269,62 @@ class BaseRestController extends FOSRestController
     /**
      * Get unauthorized response
      *
-     * @param string $message Optional error message
+     * @param string $data Optional error message
      *
      * @return JsonResponse
      */
-    public function unauthorized($message = null)
+    public function unauthorized($data = null)
     {
-        return $this->prepareResponse(Response::HTTP_UNAUTHORIZED, $message);
+        return $this->prepareResponse(Response::HTTP_UNAUTHORIZED, $data);
     }
 
     /**
      * Get unauthorized response
      *
-     * @param string $message Optional error message
+     * @param mixed $data Optional error message
      *
      * @return JsonResponse
      */
-    public function badRequest($message = null)
+    public function badRequest($data = null)
     {
-        return $this->prepareResponse(Response::HTTP_BAD_REQUEST, $message);
+        if($data instanceof ConstraintViolationList) {
+            $errors = [];
+            foreach($data as $error) {
+                $errors[$error->getPropertyPath()] = $error->getMessage();
+            }
+
+            $data = $errors;
+        }
+
+        return $this->prepareResponse(Response::HTTP_BAD_REQUEST, $data);
     }
 
     /**
      * Get forbidden response
      *
-     * @param string $message Optional error message
+     * @param string $data Optional error message
      *
      * @return JsonResponse
      */
-    public function forbidden($message = null)
+    public function forbidden($data = null)
     {
-        return $this->prepareResponse(Response::HTTP_FORBIDDEN, $message);
+        return $this->prepareResponse(Response::HTTP_FORBIDDEN, $data);
     }
 
     /**
      * Send json response
      *
-     * @param integer $code    HTTP code
-     * @param string  $message Optional error message
+     * @param integer $code HTTP code
+     * @param string  $data Optional error message
      *
      * @return JsonResponse
      */
-    protected function prepareResponse($code, $message = null)
+    protected function prepareResponse($code, $data = null)
     {
         $json = new JsonResponse([]);
         $json->setStatusCode($code);
-        if (!empty($message)) {
-            $json->setData(['message' => $message]);
+        if (!empty($data)) {
+            $json->setData($data);
         }
 
         return $json;

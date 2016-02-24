@@ -107,7 +107,7 @@ class ViewControllerTest extends BaseRestTestCase
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/views/1'
+            'api/development/views/' . $this->getReference('view1')->getId()
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -141,7 +141,7 @@ class ViewControllerTest extends BaseRestTestCase
             Response::HTTP_BAD_REQUEST,
             $client
         );
-        $this->assertContains('.identifier:\n    This value is not valid.', $jsonResponse);
+        $this->assertContains('"identifier":"This value is not valid."', $jsonResponse);
     }
 
     /**
@@ -177,11 +177,11 @@ class ViewControllerTest extends BaseRestTestCase
      */
     public function testPutViewAction()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $view   = $this->repos()->getViewRepository()->findOneById($this->getReference('view1')->getId());
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/views/1',
+            'api/development/views/' . $this->getReference('view1')->getId(),
             [
                 'identifier' => 'new-identifier',
                 'description' => 'desc',
@@ -210,11 +210,11 @@ class ViewControllerTest extends BaseRestTestCase
      */
     public function testPutViewActionWithInvalidData()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $view   = $this->repos()->getViewRepository()->findOneById($this->getReference('view1')->getId());
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/views/1',
+            'api/development/views/' . $this->getReference('view1')->getId(),
             [
                 'identifier' => '&é(-è)',
             ]
@@ -225,7 +225,7 @@ class ViewControllerTest extends BaseRestTestCase
             Response::HTTP_BAD_REQUEST,
             $client
         );
-        $this->assertContains('.identifier:\n    This value is not valid.', $jsonResponse);
+        $this->assertContains('"identifier":"This value is not valid."', $jsonResponse);
     }
 
     /**
@@ -255,11 +255,11 @@ class ViewControllerTest extends BaseRestTestCase
      */
     public function testDeleteViewActionWithValidId()
     {
-        $view   = $this->repos()->getViewRepository()->findOneById(1);
+        $view   = $this->repos()->getViewRepository()->findOneById($this->getReference('view1')->getId());
         $client = $this->getClient();
         $client->request(
             'DELETE',
-            'api/development/views/1'
+            'api/development/views/' . $this->getReference('view1')->getId()
         );
         $this->assertInstanceOf('GotCms\\Core\\Entity\\View', $view);
         $jsonResponse = $client->getResponse()->getContent();

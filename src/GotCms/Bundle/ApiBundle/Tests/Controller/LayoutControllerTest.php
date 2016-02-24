@@ -107,7 +107,7 @@ class LayoutControllerTest extends BaseRestTestCase
         $client = $this->getClient();
         $client->request(
             'GET',
-            'api/development/layouts/1'
+            'api/development/layouts/' . $this->getReference('layout1')->getId()
         );
         $jsonResponse = $client->getResponse()->getContent();
         $this->assertJson($jsonResponse);
@@ -141,7 +141,7 @@ class LayoutControllerTest extends BaseRestTestCase
             Response::HTTP_BAD_REQUEST,
             $client
         );
-        $this->assertContains('.identifier:\n    This value is not valid.', $jsonResponse);
+        $this->assertContains('"identifier":"This value is not valid."', $jsonResponse);
     }
 
     /**
@@ -177,11 +177,11 @@ class LayoutControllerTest extends BaseRestTestCase
      */
     public function testPutLayoutAction()
     {
-        $layout = $this->repos()->getLayoutRepository()->findOneById(1);
+        $layout = $this->repos()->getLayoutRepository()->findOneById($this->getReference('layout1')->getId());
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/layouts/1',
+            'api/development/layouts/' . $this->getReference('layout1')->getId(),
             [
                 'identifier' => 'new-identifier',
                 'description' => 'desc',
@@ -210,11 +210,11 @@ class LayoutControllerTest extends BaseRestTestCase
      */
     public function testPutLayoutActionWithInvalidData()
     {
-        $layout = $this->repos()->getLayoutRepository()->findOneById(1);
+        $layout = $this->repos()->getLayoutRepository()->findOneById($this->getReference('layout1')->getId());
         $client = $this->getClient();
         $client->request(
             'PUT',
-            'api/development/layouts/1',
+            'api/development/layouts/' . $this->getReference('layout1')->getId(),
             [
                 'identifier' => '&é(-è)',
             ]
@@ -225,7 +225,7 @@ class LayoutControllerTest extends BaseRestTestCase
             Response::HTTP_BAD_REQUEST,
             $client
         );
-        $this->assertContains('.identifier:\n    This value is not valid.', $jsonResponse);
+        $this->assertContains('"identifier":"This value is not valid."', $jsonResponse);
     }
 
     /**
@@ -255,11 +255,11 @@ class LayoutControllerTest extends BaseRestTestCase
      */
     public function testDeleteLayoutActionWithValidId()
     {
-        $layout = $this->repos()->getLayoutRepository()->findOneById(1);
+        $layout = $this->repos()->getLayoutRepository()->findOneById($this->getReference('layout1')->getId());
         $client = $this->getClient();
         $client->request(
             'DELETE',
-            'api/development/layouts/1'
+            'api/development/layouts/' . $this->getReference('layout1')->getId()
         );
         $this->assertInstanceOf('GotCms\\Core\\Entity\\Layout', $layout);
         $jsonResponse = $client->getResponse()->getContent();

@@ -30,6 +30,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger as ORMPurger;
 
 /**
  * Base test case controller
@@ -40,6 +41,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 class BaseRestTestCase extends WebTestCase
 {
     protected $client   = null;
+    protected $executor = [];
     protected $fixtures = [];
 
     /**
@@ -49,10 +51,9 @@ class BaseRestTestCase extends WebTestCase
      */
     protected function setUp()
     {
-        $this->runCommand('doctrine:schema:drop', ['--force' => true]);
+        $this->runCommand('doctrine:schema:create');
         $this->runCommand('doctrine:schema:update', ['--force' => true]);
-
-        $this->loadFixtures($this->fixtures);
+        $this->executor = $this->loadFixtures($this->fixtures, null, 'doctrine', ORMPurger::PURGE_MODE_DELETE);
     }
 
     /**
@@ -73,6 +74,18 @@ class BaseRestTestCase extends WebTestCase
     protected function em()
     {
         return $this->getDoctrine()->getEntityManager();
+    }
+
+    /**
+     * Get Doctrine
+     *
+     * @param string $name Reference name
+     *
+     * @return Registry
+     */
+    protected function getReference($name)
+    {
+        return $this->executor->getReferenceRepository()->getReference($name);
     }
 
     /**

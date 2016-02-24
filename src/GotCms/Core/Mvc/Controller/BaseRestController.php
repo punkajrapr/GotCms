@@ -287,9 +287,9 @@ class BaseRestController extends FOSRestController
      */
     public function badRequest($data = null)
     {
-        if($data instanceof ConstraintViolationList) {
+        if ($data instanceof ConstraintViolationList) {
             $errors = [];
-            foreach($data as $error) {
+            foreach ($data as $error) {
                 $errors[$error->getPropertyPath()] = $error->getMessage();
             }
 
